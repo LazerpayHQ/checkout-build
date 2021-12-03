@@ -1,4 +1,4 @@
-function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",logo:o="",key:x="",callback:a,onClose:v,onError:r}){let z,y,w,b={},L=!0,V=n,S=e,H=t,E=i,k=g,B="",M={qrReady:!1},s=!1;const T=x?.includes("test"),F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",Z=e=>e||"0.00";function j(){s=!s}function q(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}!function(a){if(!a.amount)return window.alert("Amount and coin should be passed");if(!a.key)return window.alert("Key not be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.async=!0;var t=()=>{z=new Pusher("be52401726705f906656",{cluster:"ap2"})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.onload=()=>{M.qrReady=!0},document.body.appendChild(n),y=document.createElement("div"),y.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
+function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",logo:o="",key:x="",callback:a,onClose:v,onError:r}){let z,y,w,b={},L=!0,S=n,V=e,H=t,E=i,k=g,B="",M={qrReady:!1},s=!1;const T=x?.includes("test"),F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",Z=e=>Number(e)?.toLocaleString()||"0.00";function j(){s=!s}function q(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}!function(a){if(!a.amount)return window.alert("Amount and coin should be passed");if(!a.key)return window.alert("Key not be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{z=new Pusher("be52401726705f906656",{cluster:"ap2"})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.title="__LazerpayScript__",n.onload=()=>M.qrReady=!0,document.body.appendChild(n),y=document.createElement("div"),y.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
             <button class="modal-close-btn LazerCheckout-close-btn">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.98242 1.42897L6.01781 12.5708M12.571 7.98218L1.4292 6.01758L12.571 7.98218Z" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -265,7 +265,9 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
               </svg>
           </div>
           <div class="lazer-section-five-content">
-            <h2 class="lazer-section-five-content-eefdf">Confirming payment</h2>
+            <h2 class="lazer-section-five-content-eefdf">
+              Confirming payment of <br> <b id="confirm-payment-amount">00</b>
+            </h2>
             <div class="lazer-section-five-content-jefjhef">
               <p class="lazer-section-five-content-xxed">Your transaction is processing,</p>
               <p class="lazer-section-five-content-xxed">please hold on for payment confirmation.</p>
@@ -447,7 +449,919 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
     <button class="mobile-modal-close-btn modal-close-btn">
       &times; &nbsp; Close
     </button>
-    `}(a),y.appendChild(i),document.body.appendChild(y);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),C=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),u=document.getElementById("nameInput"),f=document.getElementById("nameInput"),m=$(o);setTimeout(()=>{m(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",_),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return function(e="Transaction aborted"){const t=document.querySelectorAll("style");clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),v?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(y),t.forEach(e=>{"__Lazerpay__style"===e.title&&e.remove()})}()})}),p.addEventListener("click",P),f.addEventListener("input",()=>function(e,t,n){S=t.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),u.addEventListener("input",()=>function(e,t,n){V=e.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),e.addEventListener("click",O),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
+
+    <style>
+    @font-face {
+      font-family: 'Sohne-Buchin';
+      src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot'); /* IE9 Compat Modes */
+      src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.woff') format('woff'), /* Modern Browsers */
+          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.ttf')  format('truetype'), /* Safari, Android, iOS */
+          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.svg#svgFontName') format('svg'); /* Legacy iOS */
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .LazerCheckout-overlay ::-webkit-scrollbar {
+        display: none
+      }
+
+      .LazerCheckout-overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999999999999;
+        font-family: "Sohne-Buchin";
+        font-size: 11px;
+        background: white;
+      }
+
+      .LazerCheckout-container-wrapper {
+        position: relative;
+      }
+
+      .LazerCheckout-container-wrapper .Lazer-dev-env {
+        padding: 5px 10px;
+        width: 30%;
+        margin: 0 auto;
+        min-width: 100px;
+        position: absolute;
+        bottom: 36px;
+        z-index:9;
+        left: 50%;
+        color: #FFFFFF;
+        text-align: center;
+        transform: translateX(-50%);
+        background: linear-gradient(90deg, #FF5A5A 0%, #FF4343 100%);
+        border-radius: 8px 8px 0px 0px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .LazerCheckout-body {
+        position: relative;
+        background: #ffffff;
+        border-radius: 20px;
+        padding-bottom: 2rem;
+        box-shadow: 0 0 50px #ccc;
+        position: relative;
+        text-align: center;
+        width: 370px;
+        max-height: 80vh;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 300px;
+      }
+
+      .LazerCheckout-footer {
+        display:flex;
+        justify-content:center;
+        margin-top:18px;
+      }
+
+      .LazerCheckoutButton {
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .LazerCheckout-logo {
+        width: 60px;
+        height: 60px;
+      }
+
+      .LazerCheckout-logo img {
+        width:100%;
+        height: 100%;
+        border-style: none;
+        box-shadow: 0 0.6px 2.8px 0 rgb(0 0 0 / 12%);
+        border-radius: 50%;
+      }
+
+      .LazerCheckout-container-header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        padding: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 0.5px solid #dfdfdf;
+      }
+
+      .LazerCheckout-close-btn {
+        position: absolute;
+        right: -1.2rem;
+        top: -1.2rem;
+        transform: rotate(30deg) scale(1.5);
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        z-index: 999999999;
+        opacity: .5;
+        transition: .3s ease-in;
+      }
+
+      LazerCheckout-close-btn:hover {
+        opacity: 1;
+        transition: .3s ease-in;
+      }
+
+      .LazerCheckout-header-right{
+        text-align: right
+      }
+
+      .LazerCheckout-header-right-email span{
+        font-family: "Sohne-Buchin";
+        font-weight: 500;
+        font-size: 11px;
+        color: #666666;
+      }
+
+      .LazerCheckout-header-right-amount {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top:2px;
+        color: #37C978;
+      }
+
+      /* SECTION ONE */
+      .lazer-section-one h2{
+        font-family: Sohne-Buchin;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: center;
+        letter-spacing: 0.01em;
+        color: #000000;
+        margin: 0;
+        padding: 0;
+      }
+
+      .mb-23{
+        margin-bottom: 23px;
+      }
+
+      .mt-24{
+        margin-top: 24px;
+      }
+
+      .mt-28{
+        margin-top: 24px;
+      }
+
+      .mt-20{
+        margin-top: 24px;
+      }
+
+      .mt-16{
+        margin-top: 24px;
+      }
+
+      .lazer-section-one-input-wrapper {
+        width: 90%;
+        margin: auto;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction:column;
+      }
+
+      .lazer-section-one-input-wrapper h2 {
+        justify-content: flex-start;
+        text-align: start;
+        font-family: Sohne-Buchin;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        color: #323232;
+        align-self: stretch;
+        flex-grow: 0;
+        margin: 8px 0px;
+      }
+
+      .lazer-section-one-input-wrapper input{
+        width: 320px;
+        height: 52px;
+        background: #FFFFFF;
+        border: 1px solid #DFDFDF;
+        box-sizing: border-box;
+        border-radius: 4px;
+        flex: none;
+        order: 1;
+        align-self: stretch;
+        flex-grow: 1;
+        margin: 8px 0px;
+        padding: 10px 16px;
+      }
+
+      .lazer-section-one-input-wrapper input::placeholder{
+        font-family: Sohne-Buchin;
+        font-weight: normal;
+        font-size: 15px;
+        line-height: 20px;
+        letter-spacing: 0.01em;
+        color: #A5A5A5;
+        flex: none;
+        order: 1;
+        flex-grow: 0;
+        margin: 0px 16px;
+      }
+
+      .opacity{
+        opacity: 0.1;
+      }
+
+      .lazer-section-one-button{
+        background: #003585;
+        border: none;
+        box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
+        border-radius: 8px;
+        width: 320px;
+        height: 52px;
+        margin:auto;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        font-family: Sohne-Buchin;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 135%;
+        color: #FFFFFF;
+      }
+
+      .display-flex-center{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .display-flex-align-center{
+        display: flex;
+        align-items: center;
+      }
+
+      .lazer-section-hide{
+        display: none !important;
+      }
+
+      .lazer-section-show {
+        display: unset !important;
+      }
+
+      /* SECTION TWO STYLE */
+
+      .lazer-section-two-paymentOption {
+        display: flex;
+        align-items: center;
+        padding: 40px 20px;
+        border-bottom: 0.5px solid #EEEEEE;;
+        cursor: pointer;
+        transition: .3s ease-in;
+      }
+
+      .lazer-section-two-paymentOption:hover {
+        background: #FDFDFD;
+        transition: .3s ease-in;
+      }
+
+      .display-flex-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .lazer-section-two-paymentOption-content-wrapper {
+        justify-content: flex-start;
+        display: flex;
+        flex-direction: column;
+        margin: 0px auto 0px 20px;
+      }
+
+      .lazer-section-two-paymentOption-header {
+        font-family:  Sohne-Buchin;;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 18px;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 7px;
+        color: #323232;
+      }
+
+      .lazer-section-two-paymentOption-info {
+        font-family:Sohne-Buchin;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 11px;
+        line-height: 16px;
+        margin: 0;
+        padding: 0;
+        color: #666666;
+        text-align: start;
+      }
+
+      .lazer-comming-soon img{
+        width: 100%;
+        height: 100%;
+      }
+
+      /* SECTION THREE */
+
+      .lazer-section-three-coin-wrapper {
+        padding: 16px 20px;
+        cursor: pointer;
+        border-bottom:  0.5px solid #EEEEEE;
+        height: 40px;
+        transition: .3s ease-in;
+      }
+
+      .lazer-section-three-coin-wrapper:hover {
+        background: #FCFCFC;
+        transition: .3s ease-in;
+      }
+
+      .lazer-section-three-coin-container {
+        align-items: center;
+      }
+
+      .lazer-section-three-coin-container h2 {
+        margin: 0;
+        padding: 0;
+        font-family: Sohne-Buchin;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 24px;
+        color: #666666;
+        margin-left: 10px;
+        margin-bottom: 5px;
+      }
+
+      .lazer-section-three-heading {
+        height: 71px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom:  0.5px solid #EEEEEE;
+      }
+
+      .lazer-section-three-heading h3 {
+        font-family:Sohne-Buchin;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 14px;
+        color: #636363;
+      }
+
+      /* SECTION 4 */
+
+      .lazer-section-four-heading{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 32px;
+      }
+
+      .lazer-section-four-heading h2{
+        margin: 0;
+        padding: 0;
+        font-family:Sohne-Buchin;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 20px;
+        /* or 143% */
+        text-align: center;
+        /* Wireframe/Grey 1 */
+        color: #666666;
+      }
+
+      .lazer-section-four-barcode p {
+        font-family:Sohne-Buchin;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        text-align: center;
+        color: #323232;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 15px;
+      }
+
+      .lazer-section-four-barcode figure {
+        margin: 10px auto;
+      }
+
+      .lazer-section-four-barcode button {
+        width: 168px;
+        height: 32px;
+        background: #F7F9FE;
+        cursor: pointer;
+        border: 1px solid #CCD7E7;
+        box-sizing: border-box;
+        border-radius: 20px;
+        font-family:Sohne-Buchin;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 24px;
+        color: #636363;
+        margin-bottom: 17px;
+      }
+
+      .lazer-section-four-barcode {
+        border-bottom:  0.5px solid #EEEEEE;
+      }
+
+      .lazer-section-four-amount-to-pay{
+        height: 58px;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        padding: 0 29px;
+      }
+
+      .lazer-section-four-amount-to-pay p{
+        font-family:Sohne-Buchin;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 12px;
+        color: #636363;
+      }
+
+      .lazer-section-four-amount-to-pay h2 {
+        font-family:Sohne-Buchin;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 12px;
+        color: #636363;
+      }
+
+      .lazer-section-four-address-input {
+        background: #F9F9F9;
+        border: 1px solid #F1F1F1;
+        box-sizing: border-box;
+        border-radius: 4px;
+        width: 320px;
+        height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px;
+        margin-bottom: 8px;
+      }
+
+      .lazer-section-four-address-input p{
+        font-family:Sohne-Buchin;
+        font-weight: 600;
+        font-size: 8px;
+        line-height: 12px;
+        letter-spacing: 0.03em;
+        /* border: solid red 2px; */
+        text-align: start;
+        padding: 0;
+        margin: 0;
+        margin-top: 8px;
+        color: #636363;
+      }
+
+      .lazer-section-four-address-input h2{
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        line-height: 12px;
+        letter-spacing: 0.01em;
+        color: #636363;
+      }
+
+      .lazer-section-four-address-input .copy-button{
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 18px;
+        letter-spacing: 0.01em;
+        color: #37C978;
+        cursor:pointer;
+        width: 80px;
+        height: 44px;
+        background: #D7F4E4;
+        border: 0.5px solid #87DFAE;
+        box-sizing: border-box;
+        border-radius: 2px;
+        position: relative;
+        left: 5px;
+      }
+
+      .lazer-warning .lazer-warning-icon{
+        padding-left:20px;
+      }
+
+      .lazer-warning .text-warning {
+        text-align:left;
+        font-size: 12px;
+        line-height: 18px;
+        color: #323232;
+        padding:0 10px;
+        letter-spacing: 0.01em;
+      }
+
+      .lazer-warning {
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-direction:row;
+        padding:0 1px;
+        margin: 8px 25px 0;
+        background: #FFFBEB;
+        border-radius: 8px;
+        border:0.5px solid #E7E7E7;
+      }
+
+      /* SECTION 5 */
+
+      .lazer-section-five-heading .lazer-section-six-heading{
+        height: 120px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+
+      .lazer-section-six-heading{
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .lazer-section-five-content-eefdf {
+        font-family:Sohne-Buchin;
+        font-size: 18px;
+        line-height: 30px;
+        padding: 0px;
+        margin: 0px;
+        text-align: center;
+        color: #323232;
+        margin-bottom: 16px;
+      }
+
+      .lazer-section-five-content-eefdf #confirm-payment-amount {
+        color: #37C978;
+      }
+
+      .lazer-section-six-content-eefdf{
+        font-family:Sohne-Buchin;
+        font-size: 20px;
+        line-height: 24px;
+        padding: 0px;
+        margin: 0px;
+        text-align: center;
+        color: #323232;
+        margin-bottom: 12px;
+      }
+
+      .lazer-section-five-content-xxed {
+        font-family:Sohne-Buchin;
+        padding: 0px;
+        margin: 0px;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-five-content-ppss{
+        font-family:Sohne-Buchin;
+        padding: 0px;
+        margin: 0px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 18px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-five-content-sdefe{
+        font-family:Sohne-Buchin;
+        padding: 0px;
+        margin: 0px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 18px;
+        text-align: center;
+        color: #000000;
+      }
+
+      #lazer---id--errr{
+        color: #FF4747;
+        font-size: 14px;
+      }
+
+      .lazer-section-five-content-jefjhef {
+        margin-bottom: 51px;
+        font-weight: 600;
+      }
+
+      .lazer-section-six-content-jefjhef{
+        margin-bottom: 16px;
+      }
+
+      .lazer-section-footer-amount-ppss{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 0.5px solid #EEEEEE;
+        padding: 0px 20px;
+        padding-top: 17px;
+        margin-top: 40px;
+      }
+
+      .lazer-section-footer-amount-ppss p{
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        line-height: 12px;
+        color: #666666;
+        margin: 0px;
+        padding: 0px;
+        font-weight: 600;
+      }
+
+      .lazer-section-footer-amount-ppss h2{
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        font-weight: 600;
+        line-height: 12px;
+        text-align: right;
+        color: #323232;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .lazer-section-six-heading .waiting-spinner {
+        animation: spin 3s linear infinite;
+      }
+
+      .lazer-section-six-made-transfer{
+        background: #F7F9FE;
+        border: 1px solid #CCD7E7;
+        box-sizing: border-box;
+        border-radius: 20px;
+        width: 102px;
+        height: 32px;
+        margin-bottom: 16px;
+      }
+
+      .lazer-section-seveen-content-xxed {
+        font-family:Sohne-Buchin;
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+        color: #2B2B2B;
+        margin: 0px;
+        padding: 0px;
+      }
+
+      .lazer-section-seveen-content-xxed{
+        font-size: 14px;
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        line-height: 24px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-eight-content-jefjhef{
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+
+      .lazer-section-eight-content-xxed{
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        font-size: 18px;
+        line-height: 24px;
+        text-align: center;
+        color: #2B2B2B;
+      }
+
+      .lazer-section-eight-content-xxed2{
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        font-size: 14px;
+        line-height: 24px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-eight-content-xxed{
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-eight-made-transfer {
+        width: 154px;
+        height: 32px;
+        background: #F7F9FE;
+        border: 1px solid #CCD7E7;
+        box-sizing: border-box;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 8px;
+        color: #636363;
+      }
+
+      .lazer-section-six-content-jefjhefjejejejejej {
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      .lazer-section-five-content-xxedddddee3344ee {
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        color: #666666;
+      }
+
+      .lazer-section-five-content-xxedddddee3344ee06060544433 {
+        margin: 0px;
+        padding: 0px;
+        font-family:Sohne-Buchin;
+        font-size: 12px;
+        line-height: 18px;
+        text-align: center;
+        color: #37C978;
+      }
+
+      .lazer-payment-option-border-bottom {
+        border-bottom: 0.5px solid #EEEEEE;
+        margin-bottom: 15px;
+        padding-top: 10px;
+        padding-bottom: 20px;
+      }
+
+      .mobile-modal-close-btn {
+        display: none;
+        padding: 0px 20px;
+        width: auto;
+        background: #F7F9FE;
+        cursor: pointer;
+        border: 1px solid #CCD7E7;
+        box-sizing: border-box;
+        border-radius: 20px;
+        font-family:Sohne-Buchin;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 12px;
+        line-height: 24px;
+        color: #636363;
+        margin: ${T?"10px":"15px"} auto;
+      }
+
+      /* SPINNER SPINNER */
+      .lds-ellipsis {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px;
+      }
+
+      .lds-ellipsis div {
+        position: absolute;
+        top: 33px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: #37C978;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+
+      .lds-ellipsis div:nth-child(1) {
+        left: 8px;
+        animation: lds-ellipsis1 0.6s infinite;
+      }
+
+      .lds-ellipsis div:nth-child(2) {
+        left: 8px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+
+      .lds-ellipsis div:nth-child(3) {
+        left: 32px;
+        animation: lds-ellipsis2 0.6s infinite;
+      }
+
+      .lds-ellipsis div:nth-child(4) {
+        left: 56px;
+        animation: lds-ellipsis3 0.6s infinite;
+      }
+
+      @keyframes lds-ellipsis1 {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes lds-ellipsis3 {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+
+      @keyframes lds-ellipsis2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+
+        25% {
+          transform: rotate(90deg);
+        }
+
+        50% {
+          transform: rotate(180deg);
+        }
+
+        75% {
+          transform: rotate(270deg);
+        }
+
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media(max-width: 768px){
+        .lazer-section-three-coin-wrapper {
+          cursor: default
+        }
+      }
+
+      @media(max-width: 500px){
+        .LazerCheckout-container-wrapper .Lazer-dev-env {
+          position: fixed;
+          bottom: 0;
+        }
+
+        .LazerCheckout-overlay {
+          align-items: flex-start;
+        }
+
+        .LazerCheckout-body {
+          box-shadow: unset;
+          min-width: 100%;
+          min-height: 78vh;
+        }
+
+        .mobile-modal-close-btn {
+          display: flex;
+        }
+
+        .LazerCheckout-footer {
+          border-top: 0.5px solid #dfdfdf;
+          padding-top: ${T?"12px":"20px"};
+        }
+      }
+
+      @media(max-width: 400px){
+        .LazerCheckout-body {
+          height: 100vh;
+          min-height: 0;
+          max-height: 70vh;
+        }
+      }
+    </style>
+  `}(a),y.appendChild(i),document.body.appendChild(y);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),C=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),u=document.getElementById("nameInput"),f=document.getElementById("nameInput"),m=$(o);setTimeout(()=>{m(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",P),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="Transaction aborted",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),v?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(y),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",_),f.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),u.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),e.addEventListener("click",O),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
           <div class="lazer-section-six-content-jefjhefjejejejejej">
             <p class="lazer-section-five-content-xxedddddee3344ee">We are currently processing your payment refund,</p>
             <p class="lazer-section-five-content-xxedddddee3344ee"> if you need any other assistance, contact us at:</p>
@@ -455,910 +1369,4 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
               <p>help@lazer.finance</p>
             </a>
           </div>
-        `}),t.addEventListener("click",()=>{document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,q(l,s)}),c.addEventListener("click",()=>q(d,l)),D.forEach((e,t)=>{e.addEventListener("click",()=>function(e){N(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=Z(H)+" "+g}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",E=e;e={customer_name:V,customer_email:S,amount:H,currency:k,coin:E,key:x};w=e,$("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{N({isDisabled:!1}),j();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),M.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=z.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>U()),b=t.data,I(L);e=document.querySelector(".lazer-section-three");q(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{j(),N({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(["USDT","USDC","BUSD","DAI"][t]))}),n=a,i=l,o=s,n.email&&n.name&&q(i,o),C.addEventListener("click",A)},5e3)}({email:e,name:n,amount:t,coin:i,currency:g,logo:o,key:x}),function(){const e=document.createElement("style");e.title="__Lazerpay__style",e.innerHTML=`
-          @font-face {
-          font-family: 'Sohne-Buchin';
-          src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot'); /* IE9 Compat Modes */
-          src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-              url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.woff') format('woff'), /* Modern Browsers */
-              url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.ttf')  format('truetype'), /* Safari, Android, iOS */
-              url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.svg#svgFontName') format('svg'); /* Legacy iOS */
-          }
-
-          button {
-            cursor: pointer;
-          }
-
-          .LazerCheckout-overlay ::-webkit-scrollbar {
-            display: none
-          }
-
-          .LazerCheckout-overlay {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999999999;
-            font-family: "Sohne-Buchin";
-            font-size: 11px;
-            background: white;
-          }
-
-          .LazerCheckout-container-wrapper {
-            position: relative;
-          }
-
-          .LazerCheckout-container-wrapper .Lazer-dev-env {
-            padding: 5px 10px;
-            width: 30%;
-            margin: 0 auto;
-            min-width: 100px;
-            position: absolute;
-            bottom: 36px;
-            z-index:9;
-            left: 50%;
-            color: #FFFFFF;
-            text-align: center;
-            transform: translateX(-50%);
-            background: linear-gradient(90deg, #FF5A5A 0%, #FF4343 100%);
-            border-radius: 8px 8px 0px 0px;
-            font-size: 12px;
-            font-weight: 600;
-          }
-
-          .LazerCheckout-body {
-            position: relative;
-            background: #ffffff;
-            border-radius: 20px;
-            padding-bottom: 2rem;
-            box-shadow: 0 0 50px #ccc;
-            position: relative;
-            text-align: center;
-            width: 370px;
-            max-height: 80vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            min-height: 300px;
-          }
-
-          .LazerCheckout-footer {
-            display:flex;
-            justify-content:center;
-            margin-top:18px;
-          }
-
-          .LazerCheckoutButton {
-            background: none;
-            border: none;
-            cursor: pointer;
-          }
-
-          .LazerCheckout-logo {
-            width: 60px;
-            height: 60px;
-          }
-
-          .LazerCheckout-logo img {
-            width:100%;
-            height: 100%;
-            border-style: none;
-            box-shadow: 0 0.6px 2.8px 0 rgb(0 0 0 / 12%);
-            border-radius: 50%;
-          }
-
-          .LazerCheckout-container-header-wrapper {
-            display: flex;
-            justify-content: space-between;
-            align-items:center;
-            padding: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 0.5px solid #dfdfdf;
-          }
-
-          .LazerCheckout-close-btn {
-            position: absolute;
-            right: -1.2rem;
-            top: -1.2rem;
-            transform: rotate(30deg) scale(1.5);
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            z-index: 999999999;
-            opacity: .5;
-            transition: .3s ease-in;
-          }
-
-          LazerCheckout-close-btn:hover {
-            opacity: 1;
-            transition: .3s ease-in;
-          }
-
-          .LazerCheckout-header-right{
-            text-align: right
-          }
-
-          .LazerCheckout-header-right-email span{
-            font-family: "Sohne-Buchin";
-            font-weight: 500;
-            font-size: 11px;
-            color: #666666;
-          }
-
-          .LazerCheckout-header-right-amount {
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 24px;
-            margin-top:2px;
-            color: #37C978;
-          }
-
-          /* SECTION ONE */
-          .lazer-section-one h2{
-            font-family: Sohne-Buchin;
-            font-weight: bold;
-            font-size: 14px;
-            line-height: 20px;
-            text-align: center;
-            letter-spacing: 0.01em;
-            color: #000000;
-            margin: 0;
-            padding: 0;
-          }
-
-          .mb-23{
-            margin-bottom: 23px;
-          }
-
-          .mt-24{
-            margin-top: 24px;
-          }
-
-          .mt-28{
-            margin-top: 24px;
-          }
-
-          .mt-20{
-            margin-top: 24px;
-          }
-
-          .mt-16{
-            margin-top: 24px;
-          }
-
-          .lazer-section-one-input-wrapper {
-            width: 90%;
-            margin: auto;
-            display:flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction:column;
-          }
-
-          .lazer-section-one-input-wrapper h2 {
-            justify-content: flex-start;
-            text-align: start;
-            font-family: Sohne-Buchin;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: 0.01em;
-            color: #323232;
-            align-self: stretch;
-            flex-grow: 0;
-            margin: 8px 0px;
-          }
-
-          .lazer-section-one-input-wrapper input{
-            width: 320px;
-            height: 52px;
-            background: #FFFFFF;
-            border: 1px solid #DFDFDF;
-            box-sizing: border-box;
-            border-radius: 4px;
-            flex: none;
-            order: 1;
-            align-self: stretch;
-            flex-grow: 1;
-            margin: 8px 0px;
-            padding: 10px 16px;
-          }
-
-          .lazer-section-one-input-wrapper input::placeholder{
-            font-family: Sohne-Buchin;
-            font-weight: normal;
-            font-size: 15px;
-            line-height: 20px;
-            letter-spacing: 0.01em;
-            color: #A5A5A5;
-            flex: none;
-            order: 1;
-            flex-grow: 0;
-            margin: 0px 16px;
-          }
-
-          .opacity{
-            opacity: 0.1;
-          }
-
-          .lazer-section-one-button{
-            background: #003585;
-            border: none;
-            box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
-            border-radius: 8px;
-            width: 320px;
-            height: 52px;
-            margin:auto;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            font-family: Sohne-Buchin;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 135%;
-            color: #FFFFFF;
-          }
-
-          .display-flex-center{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-          }
-
-          .display-flex-align-center{
-            display: flex;
-            align-items: center;
-          }
-
-          .lazer-section-hide{
-            display: none !important;
-          }
-
-          .lazer-section-show {
-            display: unset !important;
-          }
-
-          /* SECTION TWO STYLE */
-
-          .lazer-section-two-paymentOption {
-            display: flex;
-            align-items: center;
-            padding: 40px 20px;
-            border-bottom: 0.5px solid #EEEEEE;;
-            cursor: pointer;
-            transition: .3s ease-in;
-          }
-
-          .lazer-section-two-paymentOption:hover {
-            background: #FDFDFD;
-            transition: .3s ease-in;
-          }
-
-          .display-flex-between {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-          }
-
-          .lazer-section-two-paymentOption-content-wrapper {
-            justify-content: flex-start;
-            display: flex;
-            flex-direction: column;
-            margin: 0px auto 0px 20px;
-          }
-
-          .lazer-section-two-paymentOption-header {
-            font-family:  Sohne-Buchin;;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 18px;
-            margin: 0;
-            padding: 0;
-            margin-bottom: 7px;
-            color: #323232;
-          }
-
-          .lazer-section-two-paymentOption-info {
-            font-family:Sohne-Buchin;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 11px;
-            line-height: 16px;
-            margin: 0;
-            padding: 0;
-            color: #666666;
-            text-align: start;
-          }
-
-          .lazer-comming-soon img{
-            width: 100%;
-            height: 100%;
-          }
-
-          /* SECTION THREE */
-
-          .lazer-section-three-coin-wrapper {
-            padding: 16px 20px;
-            cursor: pointer;
-            border-bottom:  0.5px solid #EEEEEE;
-            height: 40px;
-            transition: .3s ease-in;
-          }
-
-          .lazer-section-three-coin-wrapper:hover {
-            background: #FCFCFC;
-            transition: .3s ease-in;
-          }
-
-          .lazer-section-three-coin-container {
-            align-items: center;
-          }
-
-          .lazer-section-three-coin-container h2 {
-            margin: 0;
-            padding: 0;
-            font-family: Sohne-Buchin;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 24px;
-            color: #666666;
-            margin-left: 10px;
-            margin-bottom: 5px;
-          }
-
-          .lazer-section-three-heading {
-            height: 71px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom:  0.5px solid #EEEEEE;
-          }
-
-          .lazer-section-three-heading h3 {
-            font-family:Sohne-Buchin;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 14px;
-            color: #636363;
-          }
-
-          /* SECTION 4 */
-
-          .lazer-section-four-heading{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            margin-top: 32px;
-          }
-
-          .lazer-section-four-heading h2{
-            margin: 0;
-            padding: 0;
-            font-family:Sohne-Buchin;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 20px;
-            /* or 143% */
-            text-align: center;
-            /* Wireframe/Grey 1 */
-            color: #666666;
-          }
-
-          .lazer-section-four-barcode p {
-            font-family:Sohne-Buchin;
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 20px;
-            text-align: center;
-            color: #323232;
-            margin: 0;
-            padding: 0;
-            margin-bottom: 15px;
-          }
-
-          .lazer-section-four-barcode figure {
-            margin: 0 auto;
-          }
-
-          .lazer-section-four-barcode button {
-            width: 168px;
-            height: 32px;
-            background: #F7F9FE;
-            cursor: pointer;
-            border: 1px solid #CCD7E7;
-            box-sizing: border-box;
-            border-radius: 20px;
-            font-family:Sohne-Buchin;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 24px;
-            color: #636363;
-            margin-bottom: 17px;
-          }
-
-          .lazer-section-four-barcode {
-            border-bottom:  0.5px solid #EEEEEE;
-          }
-
-          .lazer-section-four-amount-to-pay{
-            height: 58px;
-            justify-content: space-between;
-            align-items: center;
-            display: flex;
-            padding: 0 29px;
-          }
-
-          .lazer-section-four-amount-to-pay p{
-            font-family:Sohne-Buchin;
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 12px;
-            color: #636363;
-          }
-
-          .lazer-section-four-amount-to-pay h2 {
-            font-family:Sohne-Buchin;
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 12px;
-            color: #636363;
-          }
-
-          .lazer-section-four-address-input {
-            background: #F9F9F9;
-            border: 1px solid #F1F1F1;
-            box-sizing: border-box;
-            border-radius: 4px;
-            width: 320px;
-            height: 52px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px;
-            margin-bottom: 8px;
-          }
-
-          .lazer-section-four-address-input p{
-            font-family:Sohne-Buchin;
-            font-weight: 600;
-            font-size: 8px;
-            line-height: 12px;
-            letter-spacing: 0.03em;
-            /* border: solid red 2px; */
-            text-align: start;
-            padding: 0;
-            margin: 0;
-            margin-top: 8px;
-            color: #636363;
-          }
-
-          .lazer-section-four-address-input h2{
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            line-height: 12px;
-            letter-spacing: 0.01em;
-            color: #636363;
-          }
-
-          .lazer-section-four-address-input .copy-button{
-            font-weight: 600;
-            font-size: 12px;
-            line-height: 18px;
-            letter-spacing: 0.01em;
-            color: #37C978;
-            cursor:pointer;
-            width: 80px;
-            height: 44px;
-            background: #D7F4E4;
-            border: 0.5px solid #87DFAE;
-            box-sizing: border-box;
-            border-radius: 2px;
-            position: relative;
-            left: 5px;
-          }
-
-          .lazer-warning .lazer-warning-icon{
-            padding-left:20px;
-          }
-
-          .lazer-warning .text-warning {
-            text-align:left;
-            font-size: 12px;
-            line-height: 18px;
-            color: #323232;
-            padding:0 10px;
-            letter-spacing: 0.01em;
-          }
-
-          .lazer-warning {
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            flex-direction:row;
-            padding:0 1px;
-            margin: 8px 25px 0;
-            background: #FFFBEB;
-            border-radius: 8px;
-            border:0.5px solid #E7E7E7;
-          }
-
-          /* SECTION 5 */
-
-          .lazer-section-five-heading .lazer-section-six-heading{
-            height: 120px;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-          }
-
-          .lazer-section-six-heading{
-            margin-top: 20px;
-            margin-bottom: 20px;
-          }
-
-          .lazer-section-five-content-eefdf{
-            font-family:Sohne-Buchin;
-            font-size: 20px;
-            line-height: 24px;
-            padding: 0px;
-            margin: 0px;
-            text-align: center;
-            color: #323232;
-            margin-bottom: 16px;
-          }
-
-          .lazer-section-six-content-eefdf{
-            font-family:Sohne-Buchin;
-            font-size: 20px;
-            line-height: 24px;
-            padding: 0px;
-            margin: 0px;
-            text-align: center;
-            color: #323232;
-            margin-bottom: 12px;
-          }
-
-          .lazer-section-five-content-xxed {
-            font-family:Sohne-Buchin;
-            padding: 0px;
-            margin: 0px;
-            font-size: 14px;
-            line-height: 24px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-five-content-ppss{
-            font-family:Sohne-Buchin;
-            padding: 0px;
-            margin: 0px;
-            font-weight: 600;
-            font-size: 11px;
-            line-height: 18px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-five-content-sdefe{
-            font-family:Sohne-Buchin;
-            padding: 0px;
-            margin: 0px;
-            font-weight: 600;
-            font-size: 11px;
-            line-height: 18px;
-            text-align: center;
-            color: #000000;
-          }
-
-          #lazer---id--errr{
-            color: #FF4747;
-            font-size: 14px;
-          }
-
-          .lazer-section-five-content-jefjhef {
-            margin-bottom: 51px;
-            font-weight: 600;
-          }
-
-          .lazer-section-six-content-jefjhef{
-            margin-bottom: 16px;
-          }
-
-          .lazer-section-footer-amount-ppss{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 0.5px solid #EEEEEE;
-            padding: 0px 20px;
-            padding-top: 17px;
-            margin-top: 40px;
-          }
-
-          .lazer-section-footer-amount-ppss p{
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            line-height: 12px;
-            color: #666666;
-            margin: 0px;
-            padding: 0px;
-            font-weight: 600;
-          }
-
-          .lazer-section-footer-amount-ppss h2{
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            font-weight: 600;
-            line-height: 12px;
-            text-align: right;
-            color: #323232;
-            margin: 0px;
-            padding: 0px;
-          }
-
-          .lazer-section-six-heading .waiting-spinner {
-            animation: spin 3s linear infinite;
-          }
-
-          .lazer-section-six-made-transfer{
-            background: #F7F9FE;
-            border: 1px solid #CCD7E7;
-            box-sizing: border-box;
-            border-radius: 20px;
-            width: 102px;
-            height: 32px;
-            margin-bottom: 16px;
-          }
-
-          .lazer-section-seveen-content-xxed {
-            font-family:Sohne-Buchin;
-            font-size: 18px;
-            line-height: 24px;
-            text-align: center;
-            color: #2B2B2B;
-            margin: 0px;
-            padding: 0px;
-          }
-
-          .lazer-section-seveen-content-xxed{
-            font-size: 14px;
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            line-height: 24px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-eight-content-jefjhef{
-            margin-bottom: 8px;
-            font-weight: 600;
-          }
-
-          .lazer-section-eight-content-xxed{
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            font-size: 18px;
-            line-height: 24px;
-            text-align: center;
-            color: #2B2B2B;
-          }
-
-          .lazer-section-eight-content-xxed2{
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            font-size: 14px;
-            line-height: 24px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-eight-content-xxed{
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            line-height: 18px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-eight-made-transfer {
-            width: 154px;
-            height: 32px;
-            background: #F7F9FE;
-            border: 1px solid #CCD7E7;
-            box-sizing: border-box;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 8px;
-            color: #636363;
-          }
-
-          .lazer-section-six-content-jefjhefjejejejejej {
-            margin-top: 10px;
-            margin-bottom: 20px;
-          }
-
-          .lazer-section-five-content-xxedddddee3344ee {
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            line-height: 18px;
-            text-align: center;
-            color: #666666;
-          }
-
-          .lazer-section-five-content-xxedddddee3344ee06060544433 {
-            margin: 0px;
-            padding: 0px;
-            font-family:Sohne-Buchin;
-            font-size: 12px;
-            line-height: 18px;
-            text-align: center;
-            color: #37C978;
-          }
-
-          .lazer-payment-option-border-bottom {
-            border-bottom: 0.5px solid #EEEEEE;
-            margin-bottom: 15px;
-            padding-top: 10px;
-            padding-bottom: 20px;
-          }
-
-          .mobile-modal-close-btn {
-            display: none;
-            padding: 0px 20px;
-            width: auto;
-            background: #F7F9FE;
-            cursor: pointer;
-            border: 1px solid #CCD7E7;
-            box-sizing: border-box;
-            border-radius: 20px;
-            font-family:Sohne-Buchin;
-            font-style: normal;
-            font-weight: normal;
-            font-size: 12px;
-            line-height: 24px;
-            color: #636363;
-            margin: ${T?"10px":"15px"} auto;
-          }
-
-          /* SPINNER SPINNER */
-          .lds-ellipsis {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-          }
-
-          .lds-ellipsis div {
-            position: absolute;
-            top: 33px;
-            width: 13px;
-            height: 13px;
-            border-radius: 50%;
-            background: #37C978;
-            animation-timing-function: cubic-bezier(0, 1, 1, 0);
-          }
-
-          .lds-ellipsis div:nth-child(1) {
-            left: 8px;
-            animation: lds-ellipsis1 0.6s infinite;
-          }
-
-          .lds-ellipsis div:nth-child(2) {
-            left: 8px;
-            animation: lds-ellipsis2 0.6s infinite;
-          }
-
-          .lds-ellipsis div:nth-child(3) {
-            left: 32px;
-            animation: lds-ellipsis2 0.6s infinite;
-          }
-
-          .lds-ellipsis div:nth-child(4) {
-            left: 56px;
-            animation: lds-ellipsis3 0.6s infinite;
-          }
-
-          @keyframes lds-ellipsis1 {
-            0% {
-              transform: scale(0);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-
-          @keyframes lds-ellipsis3 {
-            0% {
-              transform: scale(1);
-            }
-            100% {
-              transform: scale(0);
-            }
-          }
-
-          @keyframes lds-ellipsis2 {
-            0% {
-              transform: translate(0, 0);
-            }
-            100% {
-              transform: translate(24px, 0);
-            }
-          }
-
-          @keyframes spin {
-            0% {
-              transform: rotate(0deg);
-            }
-
-            25% {
-              transform: rotate(90deg);
-            }
-
-            50% {
-              transform: rotate(180deg);
-            }
-
-            75% {
-              transform: rotate(270deg);
-            }
-
-            100% {
-              transform: rotate(360deg);
-            }
-          }
-
-          @media(max-width: 768px){
-            .lazer-section-three-coin-wrapper {
-              cursor: default
-            }
-          }
-
-          @media(max-width: 500px){
-            .LazerCheckout-container-wrapper .Lazer-dev-env {
-              position: fixed;
-              bottom: 0;
-            }
-
-            .LazerCheckout-overlay {
-              align-items: flex-start;
-            }
-
-            .LazerCheckout-body {
-              box-shadow: unset;
-              min-width: 100%;
-              min-height: 78vh;
-            }
-
-            .mobile-modal-close-btn {
-              display: flex;
-            }
-
-            .LazerCheckout-footer {
-              border-top: 0.5px solid #dfdfdf;
-              padding-top: ${T?"12px":"20px"};
-            }
-          }
-
-          @media(max-width: 400px){
-            .LazerCheckout-body {
-              height: 100vh;
-              min-height: 0;
-              max-height: 70vh;
-            }
-          }
-      `.replace(/^\s+|\n/gm,""),document.head.appendChild(e)}();const D=document.querySelectorAll(".lazer-section-three-coin-wrapper");function A(){var e=document.querySelector(".lazer-section-six");q(document.querySelector(".lazer-section-four"),e),I(L),j(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(e=>{j();e=e.json();b=e;const t=z.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{j(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function P(){document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");q(document.querySelector(".lazer-section-five"),e);b.address;window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",q(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function _(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(b.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function O(){q(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),I(L)}function I(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");q(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function $(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function N({isDisabled:t=!0,excludedCoins:n=[]}={}){D?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,j(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut);var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");q(i,e),fetch(l+"/"+b?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(e=>{j();const t=e?.json(),n={error:()=>{q(document.querySelector(".lazer-section-nine"),i),r?.(t?.data),a?.(t?.data)},confirmed:()=>{document.querySelectorAll(".lazer-section-success-amount").forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=Z(t?.data?.amountPaid)+" "+t?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,q(document.querySelector(".lazer-section-seven"),i),a?.(t?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.actualAmount-t?.data?.amountPaid}  ${t?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=t?.data?.amountPaid+" "+t?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,q(document.querySelector(".lazer-section-eight"),i),a&&a(t?.data)}};n[t?.data?.status]?.()}).catch(e=>{j(),r?.(e.message||"Something went wrong, please try again.")})}}
+        `}),t.addEventListener("click",()=>{document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,q(l,s)}),c.addEventListener("click",()=>q(d,l)),A.forEach((e,t)=>{e.addEventListener("click",()=>function(e){N(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=Z(H)+" "+g}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",E=e;e={customer_name:S,customer_email:V,amount:H,currency:k,coin:E,key:x};w=e,$("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{N({isDisabled:!1}),j();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),M.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=z.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>{U()}),b=t.data,I(L);e=document.querySelector(".lazer-section-three");q(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{j(),N({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(["USDT","USDC","BUSD","DAI"][t]))}),n=a,i=l,o=s,n.email&&n.name&&q(i,o),C.addEventListener("click",D)},5e3)}({email:e,name:n,amount:t,coin:i,currency:g,logo:o,key:x});const A=document.querySelectorAll(".lazer-section-three-coin-wrapper");function D(){var e=document.querySelector(".lazer-section-six");q(document.querySelector(".lazer-section-four"),e),I(L),j(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{j();e=await e.json();b=e;const t=z.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{j(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function _(){document.getElementById("lazerSectionProgressBar").innerText="0:0",document.getElementById("confirm-payment-amount").innerText=b?.cryptoAmount+" "+b?.coin,L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");q(document.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",q(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function P(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(b.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function O(){q(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),I(L)}function I(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");q(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function $(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function N({isDisabled:t=!0,excludedCoins:n=[]}={}){A?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,j(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),q(i,e),fetch(l+"/"+b?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(async e=>{j();const n=await e?.json(),t={error:()=>{q(document.querySelector(".lazer-section-nine"),i),r?.(n?.data),a?.(n?.data)},confirmed:()=>{var e=document.querySelector("#section7");const t=document.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=Z(n?.data?.amountPaid)+" "+n?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,q(e,i),a?.(n?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${n?.data?.actualAmount-n?.data?.amountPaid}  ${n?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=n?.data?.amountPaid+" "+n?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,q(document.querySelector(".lazer-section-eight"),i),a&&a(n?.data)}};t[n?.data?.status]?.()}).catch(e=>{j(),r?.(e.message||"Something went wrong, please try again.")})}}
