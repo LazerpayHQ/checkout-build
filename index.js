@@ -39,7 +39,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
 
               <div class="LazerCheckout-header-right">
                 <div class="LazerCheckout-header-right-email">
-                  <span id="LazerCheckoutEmailInput">${e.email||""}</span>
+                  <span id="LazerCheckoutEmailInput">${e?.email||""}</span>
                 </div>
                 <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332"> ${Z(e.amount)} ${e.currency}</div>
               </div>
@@ -63,12 +63,12 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
 
             <div class="lazer-section-one-input-wrapper mt-28">
                 <h2>Full name</h2>
-                <input type="text" id="nameInput" class="nameInput" placeholder="eg Taiwo Femi">
+                <input type="text" id="nameInput" class="form-control nameInput" placeholder="eg Taiwo Femi">
             </div>
 
             <div class="lazer-section-one-input-wrapper mt-20">
                 <h2>Email address</h2>
-                <input type="email" id="nameInput" class="nameInput" placeholder="eg taiwo@example.com">
+                <input type="email" id="emailInput" class="form-control emailInput" placeholder="eg taiwo@example.com">
             </div>
 
             <div class="lazer-section-one-button-wrapper mt-16">
@@ -1361,7 +1361,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         }
       }
     </style>
-  `}(a),y.appendChild(i),document.body.appendChild(y);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),C=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),u=document.getElementById("nameInput"),f=document.getElementById("nameInput"),m=$(o);setTimeout(()=>{m(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",P),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="Transaction aborted",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),v?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(y),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",_),f.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),u.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),e.addEventListener("click",O),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
+  `}(a),y.appendChild(i),document.body.appendChild(y);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),C=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),u=document.getElementById("nameInput"),f=document.getElementById("emailInput"),m=$(o);setTimeout(()=>{m(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",P),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="Transaction aborted",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),v?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(y),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",_),f.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),u.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),e.addEventListener("click",O),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
           <div class="lazer-section-six-content-jefjhefjejejejejej">
             <p class="lazer-section-five-content-xxedddddee3344ee">We are currently processing your payment refund,</p>
             <p class="lazer-section-five-content-xxedddddee3344ee"> if you need any other assistance, contact us at:</p>
