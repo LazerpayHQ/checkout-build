@@ -1,10 +1,26 @@
-function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",logo:o="",key:x="",callback:a,onClose:v,onError:r}){let z,y,w,b={},L=!0,S=n,V=e,H=t,E=i,k=g,B="",M={qrReady:!1},s=!1;const T=x?.includes("test"),F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",Z=e=>Number(e)?.toLocaleString()||"0.00";function j(){s=!s}function q(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}!function(a){if(!a.amount)return window.alert("Amount and coin should be passed");if(!a.key)return window.alert("Key not be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{z=new Pusher("be52401726705f906656",{cluster:"ap2"})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.title="__LazerpayScript__",n.onload=()=>M.qrReady=!0,document.body.appendChild(n),y=document.createElement("div"),y.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
+function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",logo:o="",key:x="",callback:a,onClose:z,onError:r}){let y,v,w,b={},L=!0,S=n,V=e,E=t,H=i,k=C,B="",T={qrReady:!1},s=!1;const M=x?.includes("test"),j="https://api.lazerpay.engineering/api/v1/coins",F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",q=e=>Number(e)?.toLocaleString()||"0.00";let Z=document.querySelectorAll(".lazer-section-three-coin-wrapper");function A(){s=!s}function _(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}function P(){var e=document.querySelector(".lazer-section-six");_(document.querySelector(".lazer-section-four"),e),N(L),A(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{A();e=await e.json();b=e;const t=y.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{A(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function O(e){return!!String(e).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)}function $(){document.getElementById("lazerSectionProgressBar").innerText="0:0",document.getElementById("confirm-payment-amount").innerText=b?.cryptoAmount+" "+b?.coin,L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");_(document.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",_(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function D(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(b.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function I(){_(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),N(L)}function N(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");_(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function R(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function G({isDisabled:t=!0,excludedCoins:n=[]}={}){Z?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,A(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),_(i,e),fetch(l+"/"+b?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(async e=>{A();const n=await e?.json(),t={error:()=>{_(document.querySelector(".lazer-section-nine"),i),r?.(n?.data),a?.(n?.data)},confirmed:()=>{var e=document.querySelector("#section7");const t=document.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=q(n?.data?.amountPaid)+" "+n?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,_(e,i),a?.(n?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${n?.data?.actualAmount-n?.data?.amountPaid}  ${n?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=n?.data?.amountPaid+" "+n?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,_(document.querySelector(".lazer-section-eight"),i),a&&a(n?.data)}};t[n?.data?.status]?.()}).catch(e=>{A(),r?.(e.message||"Something went wrong, please try again.")})}!function(a){if(!a.amount)return window.alert("Amount and coin must be passed");if(!a.key)return window.alert("Key must be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{y=new Pusher("be52401726705f906656",{cluster:"ap2"}),fetch(j,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(e=>e.json()).then(({data:e=[]}={})=>{const t=document.getElementById("coins-list");for(var{logo:n,id:i,name:o,status:a,symbol:r}of[...e].reverse())"active"===a&&(t.innerHTML+=`
+            <a role="button" tabindex="0" data-id=${i} data-coin=${r} id=${r} class="display-flex-between lazer-section-three-coin-wrapper">
+              <div class="display-flex-align-center lazer-section-three-coin-container">
+                <div class="coin-image">
+                  <img src=${n} alt=${o} /> 
+                </div>
+                <div>
+                  <h2>${o}</h2>
+                </div>
+              </div>
+              <div>
+                <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L8 8L1 15" stroke="#DFDFDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </a>
+          `)}).catch(e=>{A(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Error getting coins"}</h3>`}).finally(()=>{Z=document.querySelectorAll(".lazer-section-three-coin-wrapper"),A()})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.title="__LazerpayScript__",n.onload=()=>T.qrReady=!0,document.body.appendChild(n),v=document.createElement("div"),v.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
             <button class="modal-close-btn LazerCheckout-close-btn">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.98242 1.42897L6.01781 12.5708M12.571 7.98218L1.4292 6.01758L12.571 7.98218Z" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
-            ${T?'<div class="Lazer-dev-env">TestNet</div>':""}
+            ${M?'<div class="Lazer-dev-env">TestNet</div>':""}
           <div class="LazerCheckout-body">
           <div class="LazerCheckout-container-header-wrapper">
               <div class="LazerCheckout-logo">
@@ -41,7 +57,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
                 <div class="LazerCheckout-header-right-email">
                   <span id="LazerCheckoutEmailInput">${e?.email||""}</span>
                 </div>
-                <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332"> ${Z(e.amount)} ${e.currency}</div>
+                <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332"> ${q(e.amount)} ${e.currency}</div>
               </div>
           </div>
 
@@ -61,20 +77,22 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
                 </div>
             </div>
 
-            <div class="lazer-section-one-input-wrapper mt-28">
-                <h2>Full name</h2>
-                <input type="text" id="nameInput" class="form-control nameInput" placeholder="eg Taiwo Femi">
-            </div>
+            <div class="form-wrapper">
+              <div class="lazer-section-one-input-wrapper mt-28">
+                  <h2>Full name</h2>
+                  <input type="text" id="nameInput" class="form-control nameInput" placeholder="eg Taiwo Femi">
+              </div>
 
-            <div class="lazer-section-one-input-wrapper mt-20">
-                <h2>Email address</h2>
-                <input type="email" id="emailInput" class="form-control emailInput" placeholder="eg taiwo@example.com">
-            </div>
+              <div class="lazer-section-one-input-wrapper mt-20">
+                  <h2>Email address</h2>
+                  <input type="email" id="emailInput" class="form-control emailInput" placeholder="eg taiwo@example.com">
+              </div>
 
-            <div class="lazer-section-one-button-wrapper mt-16">
-              <button class="lazer-section-one-button opacity">
-                Continue
-              </button>
+              <div class="lazer-section-one-button-wrapper mt-16">
+                <button disabled type='submit' class="lazer-section-one-button opacity">
+                  Continue
+                </button>
+              </div>
             </div>
           </div>
           <!-- End of first section -->
@@ -116,86 +134,9 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
           <div id="lazer-section-three-spinner" class="lazer-section-three-heading">
               <h3>Select coin you want to pay with:</h3>
           </div>
-          <a role="button" tabindex="0" data-coin="USDT" id="USDT" class="display-flex-between lazer-section-three-coin-wrapper">
-            <div class="display-flex-align-center lazer-section-three-coin-container">
-              <div>
-                  <svg width="32" height="29" viewBox="0 0 32 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.8589 0.136722L0.0239886 12.393C0.00178511 12.4386 -0.00525104 12.49 0.00390914 12.5399C0.0130693 12.5898 0.0379453 12.6354 0.0748992 12.6701L15.8336 27.7708C15.8784 27.8137 15.938 27.8377 16 27.8377C16.062 27.8377 16.1216 27.8137 16.1664 27.7708L31.9251 12.6711C31.9621 12.6364 31.9869 12.5907 31.9961 12.5409C32.0052 12.491 31.9982 12.4395 31.976 12.3939L26.1411 0.137665C26.1223 0.0965036 26.092 0.0616345 26.0539 0.0372252C26.0157 0.0128159 25.9714 -0.000100971 25.9261 1.82452e-05H6.07574C6.03026 -0.000547581 5.98559 0.0120582 5.94711 0.0363149C5.90864 0.0605716 5.878 0.095443 5.8589 0.136722Z" fill="#50AF95"/>
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M18.0246 13.6517C17.9115 13.6602 17.327 13.6951 16.0231 13.6951C14.986 13.6951 14.2497 13.664 13.9914 13.6517C9.98361 13.4754 6.99215 12.7777 6.99215 11.9424C6.99215 11.1071 9.98361 10.4104 13.9914 10.2313V12.9569C14.2535 12.9757 15.004 13.02 16.041 13.02C17.2855 13.02 17.9087 12.9682 18.0209 12.9578V10.2332C22.0202 10.4113 25.005 11.109 25.005 11.9424C25.005 12.7758 22.0211 13.4735 18.0209 13.6508L18.0246 13.6517ZM18.0246 9.95126V7.51227H23.6059V3.79297H8.4101V7.51227H13.9905V9.95031C9.45471 10.1587 6.0437 11.0571 6.0437 12.1338C6.0437 13.2105 9.45471 14.108 13.9905 14.3173V22.133H18.0237V14.3145C22.5491 14.1061 25.9544 13.2086 25.9544 12.1329C25.9544 11.0571 22.5519 10.1596 18.0237 9.95031L18.0246 9.95126Z" fill="white"/>
-                  </svg>
-              </div>
-              <div>
-                <h2>USD Tether</h2>
-              </div>
-            </div>
-            <div>
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L8 8L1 15" stroke="#DFDFDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
-
-          <a role="button" tabindex="0" data-coin="USDC" id="USD" class="display-flex-between lazer-section-three-coin-wrapper">
-            <div class="display-flex-align-center lazer-section-three-coin-container">
-              <div>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M16 32C24.8667 32 32 24.8667 32 16C32 7.13328 24.8667 0 16 0C7.13328 0 0 7.13328 0 16C0 24.8667 7.13328 32 16 32Z" fill="#2775CA"/>
-                  <path d="M20.4001 18.5328C20.4001 16.1995 19.0001 15.3995 16.2001 15.0663C14.2001 14.7995 13.8001 14.2663 13.8001 13.3328C13.8001 12.3994 14.4668 11.7995 15.8001 11.7995C17.0001 11.7995 17.6668 12.1995 18.0001 13.1995C18.0668 13.3995 18.2668 13.5328 18.4668 13.5328H19.5334C19.8001 13.5328 20.0001 13.3328 20.0001 13.0663V12.9995C19.7334 11.5328 18.5334 10.3995 17.0001 10.2663V8.66625C17.0001 8.39953 16.8001 8.19953 16.4668 8.13281H15.4668C15.2001 8.13281 15.0001 8.33281 14.9334 8.66625V10.1995C12.9334 10.4663 11.6668 11.7995 11.6668 13.4663C11.6668 15.6663 13.0001 16.5328 15.8001 16.8663C17.6668 17.1995 18.2668 17.5995 18.2668 18.6663C18.2668 19.733 17.3334 20.4663 16.0668 20.4663C14.3334 20.4663 13.7334 19.7328 13.5334 18.7328C13.4668 18.4663 13.2668 18.3328 13.0668 18.3328H11.9334C11.6668 18.3328 11.4668 18.5328 11.4668 18.7995V18.8663C11.7334 20.5328 12.8001 21.7328 15.0001 22.0663V23.6663C15.0001 23.9328 15.2001 24.1328 15.5334 24.1995H16.5334C16.8001 24.1995 17.0001 23.9995 17.0668 23.6663V22.0663C19.0668 21.7328 20.4001 20.3328 20.4001 18.5328Z" fill="white"/>
-                  <path d="M12.6001 25.5336C7.40008 23.667 4.73336 17.867 6.6668 12.7336C7.6668 9.93355 9.8668 7.80027 12.6001 6.80027C12.8668 6.66699 13.0001 6.46699 13.0001 6.13355V5.20027C13.0001 4.93355 12.8668 4.73355 12.6001 4.66699C12.5334 4.66699 12.4001 4.66699 12.3334 4.73355C6.00008 6.73355 2.53336 13.467 4.53336 19.8003C5.73336 23.5336 8.60008 26.4003 12.3334 27.6003C12.6001 27.7336 12.8668 27.6003 12.9334 27.3336C13.0001 27.267 13.0001 27.2003 13.0001 27.067V26.1336C13.0001 25.9336 12.8001 25.667 12.6001 25.5336ZM19.6668 4.73355C19.4001 4.60027 19.1334 4.73355 19.0668 5.00027C19.0001 5.06699 19.0001 5.13355 19.0001 5.26699V6.20027C19.0001 6.46699 19.2001 6.73355 19.4001 6.86699C24.6001 8.73355 27.2668 14.5336 25.3334 19.667C24.3334 22.467 22.1334 24.6003 19.4001 25.6003C19.1334 25.7336 19.0001 25.9336 19.0001 26.267V27.2003C19.0001 27.467 19.1334 27.667 19.4001 27.7336C19.4668 27.7336 19.6001 27.7336 19.6668 27.667C26.0001 25.667 29.4668 18.9336 27.4668 12.6003C26.2668 8.80027 23.3334 5.93355 19.6668 4.73355Z" fill="white"/>
-                </svg>
-              </div>
-              <div>
-                <h2>USD Coin</h2>
-              </div>
-            </div>
-            <div>
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L8 8L1 15" stroke="#DFDFDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
-
-          <a role="button" tabindex="0" data-coin="BUSD" id="BUSD" class="display-flex-between lazer-section-three-coin-wrapper">
-            <div class="display-flex-align-center lazer-section-three-coin-container">
-              <div>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9.78534 13.4467L16 7.232L22.2176 13.4493L25.8336 9.83334L16 0L6.1696 9.8304L9.78547 13.4464L9.78534 13.4467ZM0 16L3.61613 12.3834L7.232 15.9992L3.61587 19.6154L0 16ZM9.78534 18.5537L16 24.768L22.2175 18.5508L25.8354 22.1649L25.8336 22.1668L16 32L6.1696 22.1696L6.16448 22.1645L9.78573 18.5533L9.78534 18.5537ZM24.768 16.0015L28.3841 12.3854L32 16.0013L28.384 19.6174L24.768 16.0015Z" fill="#F3BA2F"/>
-                  <path d="M19.6675 15.9984H19.669L16 12.3291L13.2881 15.0403L12.9765 15.3519L12.334 15.9946L12.3289 15.9996L12.334 16.0049L16 19.6714L19.6693 16.0022L19.6711 16.0001L19.6677 15.9984" fill="#F3BA2F"/>
-                </svg>
-              </div>
-              <div>
-                <h2>Binance USD</h2>
-              </div>
-            </div>
-
-            <div>
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L8 8L1 15" stroke="#DFDFDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
-
-          <a role="button" tabindex="0" data-coin="DAI" id="DAI" class="display-flex-between lazer-section-three-coin-wrapper">
-            <div class="display-flex-align-center lazer-section-three-coin-container">
-              <div>
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 0C24.8374 0 32 7.16407 32 16C32 24.8374 24.8374 32 16 32C7.16407 32 0 24.8366 0 16C0 7.16407 7.16407 0 16 0Z" fill="#F5AC37"/>
-                <path d="M16.5883 17.1298H22.668C22.7976 17.1298 22.8588 17.1298 22.8682 16.9599C22.9179 16.3414 22.9179 15.7193 22.8682 15.1001C22.8682 14.9799 22.8084 14.9302 22.6781 14.9302H10.5784C10.4286 14.9302 10.3883 14.9799 10.3883 15.1203V16.9001C10.3883 17.1298 10.3883 17.1298 10.6281 17.1298H16.5883V17.1298ZM22.1892 12.8501C22.2065 12.8047 22.2065 12.7551 22.1892 12.7104C22.0877 12.4894 21.9675 12.2784 21.8278 12.0804C21.6175 11.742 21.3699 11.4302 21.0876 11.1502C20.9544 10.981 20.8003 10.829 20.6275 10.7002C19.7621 9.96359 18.7332 9.44231 17.6273 9.18022C17.0693 9.05494 16.499 8.99518 15.9273 9.00022H10.5575C10.4078 9.00022 10.3876 9.05998 10.3876 9.1903V12.7399C10.3876 12.8897 10.3876 12.93 10.5777 12.93H22.1172C22.1172 12.93 22.2173 12.9099 22.2375 12.8501H22.1885H22.1892ZM22.1892 19.2099C22.0193 19.1912 21.8479 19.1912 21.678 19.2099H10.5885C10.4387 19.2099 10.3883 19.2099 10.3883 19.4101V22.8805C10.3883 23.0404 10.3883 23.0807 10.5885 23.0807H15.7084C15.9532 23.0994 16.198 23.0821 16.4378 23.031C17.1809 22.9777 17.9117 22.8164 18.6086 22.5508C18.8621 22.4629 19.1069 22.3484 19.338 22.2109H19.4078C20.6081 21.5867 21.583 20.606 22.1979 19.4022C22.1979 19.4022 22.2677 19.251 22.1892 19.2114V19.2099ZM8.37877 24.88V24.8202V22.4903V21.7004V19.3503C8.37877 19.22 8.37877 19.2006 8.21893 19.2006H6.04883C5.92859 19.2006 5.87891 19.2006 5.87891 19.0407V17.1406H8.19877C8.32837 17.1406 8.37877 17.1406 8.37877 16.9707V15.0908C8.37877 14.9705 8.37877 14.941 8.21893 14.941H6.04883C5.92859 14.941 5.87891 14.941 5.87891 14.7812V13.0215C5.87891 12.9113 5.87891 12.8818 6.03875 12.8818H8.18869C8.33845 12.8818 8.37877 12.8818 8.37877 12.6917V7.30172C8.37877 7.14188 8.37877 7.10156 8.57893 7.10156H16.0785C16.6229 7.12316 17.1636 7.18292 17.6985 7.28156C18.8009 7.48533 19.86 7.87917 20.8284 8.4415C21.4707 8.8195 22.0618 9.27598 22.5881 9.80159C22.9841 10.2127 23.3412 10.6577 23.658 11.1314C23.9727 11.6117 24.234 12.1251 24.4393 12.6615C24.4645 12.8011 24.5984 12.8955 24.7381 12.8717H26.528C26.7577 12.8717 26.7577 12.8717 26.7678 13.092V14.7322C26.7678 14.892 26.708 14.9324 26.5474 14.9324H25.1672C25.0275 14.9324 24.9872 14.9324 24.9973 15.1124C25.052 15.7215 25.052 16.3328 24.9973 16.9419C24.9973 17.1118 24.9973 17.132 25.1881 17.132H26.767C26.8369 17.222 26.767 17.312 26.767 17.4027C26.7771 17.5186 26.7771 17.636 26.767 17.7519V18.9622C26.767 19.1322 26.7174 19.1826 26.5669 19.1826H24.6769C24.5451 19.1574 24.4169 19.2416 24.3867 19.3726C23.9367 20.5427 23.2167 21.5917 22.2864 22.4327C21.9466 22.7387 21.5895 23.0267 21.2165 23.2924C20.8162 23.5228 20.4266 23.7625 20.0162 23.9526C19.261 24.2925 18.469 24.543 17.6561 24.7021C16.8842 24.8404 16.1016 24.903 15.316 24.8922H8.37589V24.8821L8.37877 24.88Z" fill="#FEFEFD"/>
-                </svg>
-              </div>
-              <div>
-                <h2>Dai</h2>
-              </div>
-            </div>
-            <div>
-              <svg width="9" height="16" viewBox="0 0 9 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L8 8L1 15" stroke="#DFDFDF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          </a>
+          <div id="coins-list" class="coins-list"></div>
         </div>
         <!-- End  of 3 section -->
-
 
         <!-- Start of 4 section - Payment Processing -->
           <div id="section4" class="lazer-section-four lazer-section-hide" >
@@ -214,7 +155,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
 
             <div class="lazer-section-four-amount-to-pay">
                 <p>Amount to pay:</p>
-                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">5${Z(e.amount)} ${e.coin}</h2>
+                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">5${q(e.amount)} ${e.coin}</h2>
             </div>
 
             <div class="display-flex-center">
@@ -310,7 +251,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
             </button>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section21232-amoun-coin-12332" >${Z(e.amount)} ${e.currency}</h2>
+              <h2 class="lazer-section21232-amoun-coin-12332" >${q(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -431,7 +372,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
             </div>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${Z(e.amount)} ${e.currency}</h2>
+              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${q(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -548,7 +489,6 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
       .LazerCheckout-container-header-wrapper {
         display: flex;
         justify-content: space-between;
-        align-items:center;
         padding: 2rem;
         padding-bottom: 1rem;
         border-bottom: 0.5px solid #dfdfdf;
@@ -624,8 +564,13 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         margin-top: 24px;
       }
 
+      .form-wrapper {
+        width: 100%;
+        padding: 0 20px;
+        margin: auto
+      }
+
       .lazer-section-one-input-wrapper {
-        width: 90%;
         margin: auto;
         display:flex;
         justify-content: center;
@@ -646,8 +591,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         margin: 8px 0px;
       }
 
-      .lazer-section-one-input-wrapper input{
-        width: 320px;
+      .lazer-section-one-input-wrapper input {
         height: 52px;
         background: #FFFFFF;
         border: 1px solid #DFDFDF;
@@ -674,7 +618,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         margin: 0px 16px;
       }
 
-      .opacity{
+      .opacity {
         opacity: 0.1;
       }
 
@@ -683,8 +627,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         border: none;
         box-shadow: 0px 0px 1px rgba(12, 26, 75, 0.24), 0px 3px 8px -1px rgba(50, 50, 71, 0.05);
         border-radius: 8px;
-        width: 320px;
         height: 52px;
+        width : 100%;
         margin:auto;
         justify-content: center;
         align-items: center;
@@ -780,13 +724,17 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         padding: 16px 20px;
         cursor: pointer;
         border-bottom:  0.5px solid #EEEEEE;
-        height: 40px;
         transition: .3s ease-in;
       }
 
       .lazer-section-three-coin-wrapper:hover {
         background: #FCFCFC;
         transition: .3s ease-in;
+      }
+
+      .lazer-section-three-coin-wrapper .coin-image {
+        height: 36px;
+        width: 36px;
       }
 
       .lazer-section-three-coin-container {
@@ -919,7 +867,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         margin-bottom: 8px;
       }
 
-      .lazer-section-four-address-input p{
+      .lazer-section-four-address-input p {
         font-family:Sohne-Buchin;
         font-weight: 600;
         font-size: 8px;
@@ -1231,7 +1179,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         font-size: 12px;
         line-height: 24px;
         color: #636363;
-        margin: ${T?"10px":"15px"} auto;
+        margin: ${M?"10px":"15px"} auto;
       }
 
       /* SPINNER SPINNER */
@@ -1337,28 +1285,31 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
           align-items: flex-start;
         }
 
+        .LazerCheckout-container-wrapper {
+          width: 100%;
+        }
+
         .LazerCheckout-body {
           box-shadow: unset;
           min-width: 100%;
           border-radius: 0;
           height: max-content;
           max-height: 90vh;
+          width: 100%;
+          padding-bottom: 50px;
         }
 
         .mobile-modal-close-btn {
           display: flex;
         }
 
-        .lazer-section-three-coin-wrapper {
-          height: auto
-        }
-
         .LazerCheckout-footer {
           position: fixed;
           left: 0;
           align-items: center;
-          bottom: ${T?"30px":"10px"};
+          bottom: ${M?"30px":"0px"};
           width: 100%;
+          background: #ffffff;
           flex-direction: column;
           text-align: center;
           border-top: 0.5px solid #dfdfdf;
@@ -1373,7 +1324,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
         }
       }
     </style>
-  `}(a),y.appendChild(i),document.body.appendChild(y);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),C=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),u=document.getElementById("nameInput"),f=document.getElementById("emailInput"),m=$(o);setTimeout(()=>{m(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",P),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),v?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(y),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",_),f.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),u.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length)?n.classList.remove("opacity"):n.classList.add("opacity")}(u,f,t)),e.addEventListener("click",O),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
+  `}(a),v.appendChild(i),document.body.appendChild(v);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),u=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),m=document.getElementById("nameInput"),f=document.getElementById("emailInput"),g=R(o);setTimeout(()=>{g(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",D),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),z?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(v),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",$),m.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),f.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),e.addEventListener("click",I),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
           <div class="lazer-section-six-content-jefjhefjejejejejej">
             <p class="lazer-section-five-content-xxedddddee3344ee">We are currently processing your payment refund,</p>
             <p class="lazer-section-five-content-xxedddddee3344ee"> if you need any other assistance, contact us at:</p>
@@ -1381,4 +1332,4 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:g="",
               <p>help@lazer.finance</p>
             </a>
           </div>
-        `}),t.addEventListener("click",()=>{S=u.value,V=f.value,document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,q(l,s)}),c.addEventListener("click",()=>q(d,l)),A.forEach((e,t)=>{e.addEventListener("click",()=>function(e){N(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=Z(H)+" "+g}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",E=e;e={customer_name:S,customer_email:V,amount:H,currency:k,coin:E,key:x};w=e,$("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{N({isDisabled:!1}),j();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),M.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=z.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>{U()}),b=t.data,I(L);e=document.querySelector(".lazer-section-three");q(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{j(),N({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(["USDT","USDC","BUSD","DAI"][t]))}),n=a,i=l,o=s,n.email&&n.name&&q(i,o),C.addEventListener("click",D)},5e3)}({email:V,name:S,amount:t,coin:i,currency:g,logo:o,key:x});const A=document.querySelectorAll(".lazer-section-three-coin-wrapper");function D(){var e=document.querySelector(".lazer-section-six");q(document.querySelector(".lazer-section-four"),e),I(L),j(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{j();e=await e.json();b=e;const t=z.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{j(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function _(){document.getElementById("lazerSectionProgressBar").innerText="0:0",document.getElementById("confirm-payment-amount").innerText=b?.cryptoAmount+" "+b?.coin,L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");q(document.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",q(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function P(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(b.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function O(){q(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),I(L)}function I(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");q(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function $(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function N({isDisabled:t=!0,excludedCoins:n=[]}={}){A?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,j(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),q(i,e),fetch(l+"/"+b?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(async e=>{j();const n=await e?.json(),t={error:()=>{q(document.querySelector(".lazer-section-nine"),i),r?.(n?.data),a?.(n?.data)},confirmed:()=>{var e=document.querySelector("#section7");const t=document.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=Z(n?.data?.amountPaid)+" "+n?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,q(e,i),a?.(n?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${n?.data?.actualAmount-n?.data?.amountPaid}  ${n?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=n?.data?.amountPaid+" "+n?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,q(document.querySelector(".lazer-section-eight"),i),a&&a(n?.data)}};t[n?.data?.status]?.()}).catch(e=>{j(),r?.(e.message||"Something went wrong, please try again.")})}}
+        `}),t.addEventListener("click",()=>{S=m.value,V=f.value,document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,_(l,s)}),c.addEventListener("click",()=>_(d,l)),Z.forEach(e=>{e.addEventListener("click",()=>{!function(e){G(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=q(E)+" "+C}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",H=e;e={customer_name:S,customer_email:V,amount:E,currency:k,coin:H,key:x};w=e,R("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{G({isDisabled:!1}),A();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),T.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=y.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>{U()}),b=t.data,N(L);e=document.querySelector(".lazer-section-three");_(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{A(),G({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(e?.getAttribute("data-coin"))})}),n=a,i=l,o=s,n.email&&n.name&&_(i,o),u.addEventListener("click",P)},2e3)}({email:V,name:S,amount:t,coin:i,currency:C,logo:o,key:x})}
