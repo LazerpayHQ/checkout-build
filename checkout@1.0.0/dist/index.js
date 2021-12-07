@@ -401,12 +401,12 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
           url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.svg#svgFontName') format('svg'); /* Legacy iOS */
       }
 
-      img {
-        max-width: 100%;
-      }
-
       button {
         cursor: pointer;
+      }
+      
+      img {
+        max-width: 100%;
       }
 
       .LazerCheckout-overlay ::-webkit-scrollbar {
