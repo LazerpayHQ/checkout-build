@@ -567,7 +567,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
       .form-wrapper {
         width: 100%;
         padding: 0 20px;
-        margin: auto
+        margin: auto;
+        box-sizing: border-box;
       }
 
       .lazer-section-one-input-wrapper {
