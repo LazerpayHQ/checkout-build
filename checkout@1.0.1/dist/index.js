@@ -1,4 +1,4 @@
-function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",logo:o="",key:x="",callback:a,onClose:z,onError:r}){let y,v,w,b={},L=!0,S=n,V=e,E=t,H=i,k=C,B="",T={qrReady:!1},s=!1;const M=x?.includes("test"),j="https://api.lazerpay.engineering/api/v1/coins",F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",q=e=>Number(e)?.toLocaleString()||"0.00";let Z=document.querySelectorAll(".lazer-section-three-coin-wrapper");function A(){s=!s}function _(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}function P(){var e=document.querySelector(".lazer-section-six");_(document.querySelector(".lazer-section-four"),e),N(L),A(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{A();e=await e.json();b=e;const t=y.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{A(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function O(e){return!!String(e).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)}function $(){document.getElementById("lazerSectionProgressBar").innerText="0:0",document.getElementById("confirm-payment-amount").innerText=b?.cryptoAmount+" "+b?.coin,L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");_(document.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",_(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function D(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(b.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function I(){_(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),N(L)}function N(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");_(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function R(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function G({isDisabled:t=!0,excludedCoins:n=[]}={}){Z?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,A(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),_(i,e),fetch(l+"/"+b?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(async e=>{A();const n=await e?.json(),t={error:()=>{_(document.querySelector(".lazer-section-nine"),i),r?.(n?.data),a?.(n?.data)},confirmed:()=>{var e=document.querySelector("#section7");const t=document.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=q(n?.data?.amountPaid)+" "+n?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,_(e,i),a?.(n?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${n?.data?.actualAmount-n?.data?.amountPaid}  ${n?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=n?.data?.amountPaid+" "+n?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,_(document.querySelector(".lazer-section-eight"),i),a&&a(n?.data)}};t[n?.data?.status]?.()}).catch(e=>{A(),r?.(e.message||"Something went wrong, please try again.")})}!function(a){if(!a.amount)return window.alert("Amount and coin must be passed");if(!a.key)return window.alert("Key must be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{y=new Pusher("be52401726705f906656",{cluster:"ap2"}),fetch(j,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(e=>e.json()).then(({data:e=[]}={})=>{const t=document.getElementById("coins-list");for(var{logo:n,id:i,name:o,status:a,symbol:r}of[...e].reverse())"active"===a&&(t.innerHTML+=`
+function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",logo:o="",key:x="",callback:a,onClose:y,onError:r}){let z,v,b,w={},L=!0,S=n,E=e,V=t,H=i,k=C,B="",T={qrReady:!1},s=!1;const M=x?.includes("test"),j="https://api.lazerpay.engineering/api/v1/coins",F="https://api.lazerpay.engineering/api/v1/transaction/initialize",l="https://api.lazerpay.engineering/api/v1/transaction/verify",A=e=>Number(e)?.toLocaleString()||"0.00";let q=document.querySelectorAll(".lazer-section-three-coin-wrapper");function Z(){s=!s}function _(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}function P(){var e=document.querySelector(".lazer-section-six");_(document.querySelector(".lazer-section-four"),e),N(L),Z(),fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":b.key},body:JSON.stringify({...b})}).then(async e=>{Z();e=await e.json();w=e;const t=z.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{U()})}).catch(e=>{Z(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function O(e){return!!String(e).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)}function I(){document.getElementById("lazerSectionProgressBar").innerText="0:0",document.getElementById("confirm-payment-amount").innerText=w?.cryptoAmount+" "+w?.coin,L=!1,clearTimeout(window.lazerCountDownTimer);var e=document.querySelector(".lazer-section-four");_(document.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{document.getElementById("lazerSectionProgressBar").innerHTML="0:0",_(document.querySelector(".lazer-section-six"),document.querySelector(".lazer-section-five"))},6e5)}function $(){document.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(w.address),setTimeout(()=>{document.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function D(){_(document.querySelector(".lazer-section-four"),document.querySelector(".lazer-section-eight")),N(L)}function N(a){function r(e){return e<0&&(e="59"),String(e).padStart(2,0)}document.getElementById("lazerSectionProgressBar").innerHTML="4:59",function e(){var t=document.getElementById("lazerSectionProgressBar").innerHTML;var n=t.split(/[:]+/);t=n[0];n=r(n[1]-1);59==n&&(t-=1);if(t<0)return;document.getElementById("lazerSectionProgressBar").innerHTML=t+":"+n;if(0==t&&0==n&&a){clearTimeout(window.lazerCountDownTimer),document.getElementById("lazerSectionProgressBar").innerHTML="0:0",clearTimeout(window.lazerCountDownTimer);const i=document.querySelector(".lazer-section-six "),o=document.querySelector(".lazer-section-four ");_(i,o)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function R(e){const t="string"==typeof e?document.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}function G({isDisabled:t=!0,excludedCoins:n=[]}={}){q?.forEach(e=>{if(!n.includes(e.getAttribute("data-coin")))return e.setAttribute("style","pointer-events: "+(t?"none":"initial"))})}function U(){var e=document.querySelector(".lazer-section-four");const i=document.querySelector(".lazer-section-five");document.getElementById("lazerSectionProgressBar").innerHTML="0:0",L=!1,Z(),clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),_(i,e),fetch(l+"/"+w?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(async e=>{Z();const n=await e?.json(),t={error:()=>{_(document.querySelector(".lazer-section-nine"),i),r?.(n?.data),a?.(n?.data)},confirmed:()=>{var e=document.querySelector("#section7");const t=document.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{if("footer-amount"!==e.getAttribute("data-id"))return e.innerText=A(n?.data?.amountPaid)+" "+n?.data?.coin}),document.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+B,_(e,i),a?.(n?.data)},incomplete:()=>{document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${n?.data?.actualAmount-n?.data?.amountPaid}  ${n?.data?.coin} `,document.querySelector(".lazer-section-partial-amount-amountPaid").innerText=n?.data?.amountPaid+" "+n?.data?.coin,document.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+B,_(document.querySelector(".lazer-section-eight"),i),a&&a(n?.data)}};t[n?.data?.status]?.()}).catch(e=>{Z(),r?.(e.message||"Something went wrong, please try again.")})}!function(a){if(!a.amount)return window.alert("Amount and coin must be passed");if(!a.key)return window.alert("Key must be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{z=new Pusher("be52401726705f906656",{cluster:"ap2"}),fetch(j,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":x}}).then(e=>e.json()).then(({data:e=[]}={})=>{const t=document.getElementById("coins-list");for(var{logo:n,id:i,name:o,status:a,symbol:r}of[...e].reverse())"active"===a&&(t.innerHTML+=`
             <a role="button" tabindex="0" data-id=${i} data-coin=${r} id=${r} class="display-flex-between lazer-section-three-coin-wrapper">
               <div class="display-flex-align-center lazer-section-three-coin-container">
                 <div class="coin-image">
@@ -14,7 +14,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
                 </svg>
               </div>
             </a>
-          `)}).catch(e=>{A(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Error getting coins"}</h3>`}).finally(()=>{Z=document.querySelectorAll(".lazer-section-three-coin-wrapper"),A()})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.title="__LazerpayScript__",n.onload=()=>T.qrReady=!0,document.body.appendChild(n),v=document.createElement("div"),v.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
+          `)}).catch(e=>{Z(),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Error getting coins"}</h3>`}).finally(()=>{q=document.querySelectorAll(".lazer-section-three-coin-wrapper"),Z()})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const n=document.createElement("script");n.type="text/javascript",n.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",n.title="__LazerpayScript__",n.onload=()=>T.qrReady=!0,document.body.appendChild(n),v=document.createElement("div"),v.classList.add("LazerCheckout-overlay");const i=document.createElement("div");i.classList.add("LazerCheckout-container-wrapper"),i.innerHTML=function(e){return`
             <button class="modal-close-btn LazerCheckout-close-btn">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.98242 1.42897L6.01781 12.5708M12.571 7.98218L1.4292 6.01758L12.571 7.98218Z" stroke="#2B2B2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -57,7 +57,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
                 <div class="LazerCheckout-header-right-email">
                   <span id="LazerCheckoutEmailInput">${e?.email||""}</span>
                 </div>
-                <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332"> ${q(e.amount)} ${e.currency}</div>
+                <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332"> ${A(e.amount)} ${e.currency}</div>
               </div>
           </div>
 
@@ -155,7 +155,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
 
             <div class="lazer-section-four-amount-to-pay">
                 <p>Amount to pay:</p>
-                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">5${q(e.amount)} ${e.coin}</h2>
+                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">5${A(e.amount)} ${e.coin}</h2>
             </div>
 
             <div class="display-flex-center">
@@ -251,7 +251,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
             </button>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section21232-amoun-coin-12332" >${q(e.amount)} ${e.currency}</h2>
+              <h2 class="lazer-section21232-amoun-coin-12332" >${A(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
             </div>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${q(e.amount)} ${e.currency}</h2>
+              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${A(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -389,6 +389,17 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
       <button class="mobile-modal-close-btn modal-close-btn">
         &times; &nbsp; Close
       </button>
+        <div id="confirm-close">
+          <h3>Are you sure?</h3>
+          <div class="btn-flex">
+            <button data-action="abort" id="negativeBtn" class="mobile-modal-close-btn modal-close-btn">
+              &times; &nbsp; No
+            </button>
+            <button data-action="proceed" id="positiveBtn" class="mobile-modal-close-btn modal-close-btn">
+              &check; &nbsp; Yes
+            </button>
+          </div>
+        <div>
     </div>
 
     <style>
@@ -404,9 +415,9 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
       button {
         cursor: pointer;
       }
-      
+
       img {
-        max-width: 100%;
+        max-width: 100%
       }
 
       .LazerCheckout-overlay ::-webkit-scrollbar {
@@ -1170,7 +1181,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
       }
 
       .mobile-modal-close-btn {
-        display: none;
+        display: none !important;
         padding: 0px 20px;
         width: auto;
         background: #F7F9FE;
@@ -1185,6 +1196,44 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
         line-height: 24px;
         color: #636363;
         margin: ${M?"10px":"15px"} auto;
+      }
+
+      .blur {
+        filter: blur(8px);
+        transition: .3s ease-in;
+      }
+
+      #confirm-close {
+        display: none;
+        color: #003585;
+        border-radius: 20px;
+        font-family: Sohne-Buchin;
+        position: absolute;
+        padding: 20px;
+        width: 100%;
+        text-align: center;
+        top: 50%;
+        font-size: 16px;
+        transform: translateY(-50%);
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+        font-weight: 600;
+        animation: swing .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+      }
+
+      #confirm-close .btn-flex {
+        display: flex;
+        margin-top: 25px;
+      }
+
+      #confirm-close .btn-flex button {
+        margin: 0 7px;
+        display: block !important;
+        padding: 5px 30px;
+        font-weight: 600;
       }
 
       /* SPINNER SPINNER */
@@ -1223,6 +1272,17 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
       .lds-ellipsis div:nth-child(4) {
         left: 56px;
         animation: lds-ellipsis3 0.6s infinite;
+      }
+
+      @keyframes swing {
+        from {
+          opacity: 0;
+          top: 80%
+        }
+        to {
+          opacity: 1;
+          top: 50%
+        }
       }
 
       @keyframes lds-ellipsis1 {
@@ -1304,8 +1364,14 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
           padding-bottom: 50px;
         }
 
+        #confirm-close {
+          position: fixed;
+          height: 100%;
+          width: 100%;
+        }
+
         .mobile-modal-close-btn {
-          display: flex;
+          display: flex !important;
         }
 
         .LazerCheckout-footer {
@@ -1318,7 +1384,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
           flex-direction: column;
           text-align: center;
           border-top: 0.5px solid #dfdfdf;
-          padding-top: 20px;
+          padding: 20px 0 10px;
         }
       }
 
@@ -1329,7 +1395,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
         }
       }
     </style>
-  `}(a),v.appendChild(i),document.body.appendChild(v);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),u=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),m=document.getElementById("nameInput"),f=document.getElementById("emailInput"),g=R(o);setTimeout(()=>{g(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",D),r.forEach(e=>{e.addEventListener("click",()=>{if(window.confirm("Are you sure?"))return e="",t=document.querySelectorAll("style"),n=document.querySelectorAll("script"),clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),z?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(v),void[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()});var e,t,n})}),p.addEventListener("click",$),m.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),f.addEventListener("input",()=>function(e,t,n){V=t.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),e.addEventListener("click",I),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
+  `}(a),v.appendChild(i),document.body.appendChild(v);const r=document.querySelectorAll(".modal-close-btn"),o=document.querySelector(".initial-loader"),s=document.querySelector(".lazer-section-one"),l=document.querySelector(".lazer-section-two"),c=document.querySelector(".lazer-section-two-paymentOption"),d=document.querySelector(".lazer-section-three"),p=document.querySelector("#lazer-section-four-confrim-transferBtn"),h=document.querySelector(".lazer-section-eight-request-refund"),u=document.querySelector("#lazer-section-six-made-transfer-tryAgain"),m=document.getElementById("nameInput"),f=document.getElementById("emailInput"),g=R(o);setTimeout(()=>{g(),s.classList.add("lazer-section-show");const e=document.querySelector(".lazer-section-eight-complete-payment"),t=document.querySelector(".lazer-section-one-button");var n,i,o;document.querySelector(".lazer-copy-button").addEventListener("click",$),r.forEach(e=>{const t=document.querySelector(".LazerCheckout-body"),n=document.getElementById("confirm-close"),i=document.getElementById("negativeBtn"),o=document.getElementById("positiveBtn"),a={proceed:()=>function(e=""){var t=document.querySelectorAll("style"),n=document.querySelectorAll("script");clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),y?.(e),clearTimeout(window.lazerCopyTimer),document.body.removeChild(v),[...t,...n].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__"].includes(e.title)&&e.remove()})}(),abort:()=>{t.setAttribute("style","filter: none"),n.setAttribute("style","display: none"),r[1]?.setAttribute("style","display: block")}};e.addEventListener("click",()=>{n.setAttribute("style","display: flex"),r[1]?.setAttribute("style","display: none !important"),t.setAttribute("style","filter:  blur(8px); transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);")}),[i,o].forEach(e=>{e.addEventListener("click",({target:e})=>{a[e.getAttribute("data-action")]?.()})})}),p.addEventListener("click",I),m.addEventListener("input",()=>function(e,t,n){S=e.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),f.addEventListener("input",()=>function(e,t,n){E=t.value,Number(e.value.length&&t.value.length&&O(t.value))?(n.classList.remove("opacity"),n.removeAttribute("disabled")):(n.classList.add("opacity"),n.setAttribute("disabled",!0))}(m,f,t)),e.addEventListener("click",D),h.addEventListener("click",()=>{document.querySelector(".lazer-section-request-refund-wrapper").innerHTML=`
           <div class="lazer-section-six-content-jefjhefjejejejejej">
             <p class="lazer-section-five-content-xxedddddee3344ee">We are currently processing your payment refund,</p>
             <p class="lazer-section-five-content-xxedddddee3344ee"> if you need any other assistance, contact us at:</p>
@@ -1337,4 +1403,4 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:C="",
               <p>help@lazer.finance</p>
             </a>
           </div>
-        `}),t.addEventListener("click",()=>{S=m.value,V=f.value,document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,_(l,s)}),c.addEventListener("click",()=>_(d,l)),Z.forEach(e=>{e.addEventListener("click",()=>{!function(e){G(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=q(E)+" "+C}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",H=e;e={customer_name:S,customer_email:V,amount:E,currency:k,coin:H,key:x};w=e,R("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":w.key},body:JSON.stringify({...w})}).then(async e=>{G({isDisabled:!1}),A();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),T.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=y.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>{U()}),b=t.data,N(L);e=document.querySelector(".lazer-section-three");_(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{A(),G({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(e?.getAttribute("data-coin"))})}),n=a,i=l,o=s,n.email&&n.name&&_(i,o),u.addEventListener("click",P)},2e3)}({email:V,name:S,amount:t,coin:i,currency:C,logo:o,key:x})}
+        `}),t.addEventListener("click",()=>{S=m.value,E=f.value,document.querySelector("#LazerCheckoutEmailInput").innerText=f.value,_(l,s)}),c.addEventListener("click",()=>_(d,l)),q=document.querySelectorAll(".lazer-section-three-coin-wrapper"),q.forEach(e=>{e.addEventListener("click",()=>{!function(e){G(),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>{e.innerText=A(V)+" "+C}),document.querySelectorAll(".lazer-section-coin-address").innerText=e+" Address",H=e;e={customer_name:S,customer_email:E,amount:V,currency:k,coin:H,key:x};b=e,R("#lazer-section-three-spinner");fetch(F,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":b.key},body:JSON.stringify({...b})}).then(async e=>{G({isDisabled:!1}),Z();let t=await e.json();if([200,201,202].includes(e?.status)){B=t?.data?.businessName,document.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with:</h3>",document.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${t?.data?.cryptoAmount}  ${t?.data?.coin} `,document.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,14)+"..."+t?.data?.address.slice(-5),T.qrReady&&function({address:e,QRElement:t}){const n=e,i=new QRCodeStyling({width:120,height:120,type:"svg",data:n,image:"https://res.cloudinary.com/lazer/image/upload/v1638271431/logo_1_rpv0ft.svg",dotsOptions:{color:"#000",type:"rounded"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:document.querySelector("#lazerpay-qr-code")});const n=z.subscribe("DEPOSIT_EVENT");n.bind(""+t?.data?.address,e=>{U()}),w=t.data,N(L);e=document.querySelector(".lazer-section-three");_(document.querySelector(".lazer-section-four"),e)}else document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{Z(),G({isDisabled:!1}),document.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}(e?.getAttribute("data-coin"))})}),n=a,i=l,o=s,n.email&&n.name&&_(i,o),u.addEventListener("click",P)},2e3)}({email:E,name:S,amount:t,coin:i,currency:C,logo:o,key:x})}
