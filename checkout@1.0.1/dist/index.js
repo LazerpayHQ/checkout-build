@@ -387,6 +387,16 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         color: #003585
       }
 
+      .vender-cover-logo {
+        height: 50px;
+        width: 50px;
+      }
+
+      .vender-cover-logo img {
+        max-width: 100%;
+        object-fit: contain
+      } 
+
       input.form-control {
         height: 52px;
         background: #FFFFFF;
