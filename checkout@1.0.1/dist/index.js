@@ -40,7 +40,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
                   <span id="LazerCheckoutEmailInput">${e?.email||""}</span>
                 </div>
                 <div  class="LazerCheckout-header-right-amount lazer-section21232-amoun-coin-12332">
-                  ${e.currency} ${E(e.amount)}
+                  ${E(e.amount)} ${e.currency}
                 </div>
               </div>
           </div>
@@ -387,6 +387,16 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         color: #003585
       }
 
+      .vender-cover-logo {
+        height: 50px;
+        width: 50px;
+      }
+
+      .vender-cover-logo img {
+        max-width: 100%;
+        object-fit: cover
+      } 
+
       input.form-control {
         height: 52px;
         background: #FFFFFF;
@@ -495,13 +505,13 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         position: relative;
         display: flex;
         justify-content: space-between;
-        padding: 2.3rem 2rem 0 2rem;
+        padding: 2.3rem 2rem .5rem 2rem;
         border-bottom: 0.5px solid #dfdfdf;
       }
 
       .LazerCheckout-close-btn {
         font-size: 20px;
-        padding-top: 1.5px;
+        padding-top: 3px;
         position: absolute;
         border: 1px solid #DFDFDF;
         border-radius: 100%;
@@ -510,8 +520,11 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         align-items: center;
         box-sizing: border-box;
         min-width: 25px;
+        max-width: 25px;
         width: 25px;
         height: 25px;
+        min-height: 25px;
+        mx-height: 25px;
         right: 10px;
         top: 10px;
         background: transparent;
