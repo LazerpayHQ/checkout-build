@@ -359,8 +359,13 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         letter-spacing: 0px !important;
       }
 
-      button {
+      button:not(.copy-button) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
+        margin-right: auto;
+        margin-left: auto;
       }
 
       #lazerpay-qr-code {
@@ -393,8 +398,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
       }
 
       .vender-cover-logo {
-        height: 50px;
-        width: 50px;
+        height: 55px;
+        width: 55px;
       }
 
       .vender-cover-logo img {
