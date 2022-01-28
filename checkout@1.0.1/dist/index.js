@@ -359,18 +359,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         letter-spacing: 0px !important;
       }
 
-      button:not(.copy-button) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      button {
         cursor: pointer;
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      #lazerpay-qr-code {
-        display: flex;
-        justify-content: center
       }
 
       img {
@@ -398,8 +388,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
       }
 
       .vender-cover-logo {
-        height: 55px;
-        width: 55px;
+        height: 50px;
+        width: 50px;
       }
 
       .vender-cover-logo img {
@@ -821,8 +811,6 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
 
       .lazer-section-four-barcode figure {
         margin: 10px auto;
-        display: flex;
-        justify-content: center
       }
 
       .lazer-section-four-barcode button {
@@ -839,10 +827,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         font-size: 12px;
         line-height: 24px;
         color: #636363;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 10px auto 17px auto;
+        margin-bottom: 17px;
       }
 
       button.go-back-button {
@@ -1439,6 +1424,54 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
           padding: 20px 0;
         }
       }
+
+
+      /* Tem fix checkout breaking style */
+      .waiting-spinner {
+          display: flex;
+          justify-content: center;
+          margin: auto;
+      }
+
+      #lazerpay-qr-code {
+          display: flex;
+          justify-content: center;
+      }
+
+      #lazer-section-four-confrim-transferBtn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 20px auto 30px auto;
+      }
+
+      #lazer-section-six-made-transfer-tryAgain {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto;
+      }
+
+      #section6 svg {
+          margin: auto;
+      }
+
+      #section7 svg {
+          margin: auto;
+      }
+
+      #section8 svg {
+          margin: auto;
+      }
+
+      #section9 svg {
+          margin: auto;
+      }
+
+      #modal-closure-btn {
+          padding: 0 0px 3px 1px;
+      }
+
 
       @media(max-width: 400px){
         .LazerCheckout-body {
