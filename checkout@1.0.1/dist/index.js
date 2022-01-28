@@ -1440,6 +1440,45 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         }
       }
 
+      /* Tem fix checkout breaking style */
+      .waiting-spinner {
+          display: flex;
+          justify-content: center;
+          margin: auto;
+      }
+      #lazerpay-qr-code {
+          display: flex;
+          justify-content: center;
+      }
+      #lazer-section-four-confrim-transferBtn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 20px auto 30px auto;
+      }
+      #lazer-section-six-made-transfer-tryAgain {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: auto;
+      }
+      #section6 svg {
+          margin: auto;
+      }
+      #section7 svg {
+          margin: auto;
+      }
+      #section8 svg {
+          margin: auto;
+      }
+      #section9 svg {
+          margin: auto;
+      }
+      #modal-closure-btn {
+          padding: 0 0px 3px 1px;
+      }
+
+
       @media(max-width: 400px){
         .LazerCheckout-body {
           height: 100vh;
