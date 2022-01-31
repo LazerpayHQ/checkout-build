@@ -436,7 +436,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         z-index: 999999999999;
         font-family: "Sohne-Buchin";
         font-size: 11px;
-        background: rgba(255, 255, 255, 0.21);
+        background: rgba(0, 0, 0, 0.3);
       }
 
       .LazerCheckout-container-wrapper {
