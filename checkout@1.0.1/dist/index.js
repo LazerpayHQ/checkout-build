@@ -157,7 +157,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
             <svg class="waiting-spinner" width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M36 0C16.1498 0 0 16.1498 0 36C0 55.8502 16.1498 72 36 72C55.8502 72 72 55.8502 72 36C72 16.1498 55.8502 0 36 0ZM56.7692 31.526C56.7692 31.9216 56.612 32.3011 56.3323 32.5809C56.0525 32.8607 55.673 33.0179 55.2773 33.0179H44.9723C44.6771 33.0184 44.3885 32.9311 44.1429 32.7673C43.8974 32.6035 43.706 32.3705 43.5931 32.0977C43.4802 31.825 43.4508 31.5249 43.5087 31.2354C43.5666 30.946 43.7091 30.6802 43.9183 30.4719L47.7554 26.6348L46.7862 25.5081C45.0525 23.7083 42.8998 22.3661 40.5207 21.6016C38.1415 20.8371 35.6099 20.6741 33.1524 21.1271C30.6948 21.5802 28.3878 22.6351 26.4376 24.1977C24.4874 25.7603 22.9548 27.7817 21.9768 30.0814C20.9988 32.3811 20.6059 34.8873 20.8333 37.3759C21.0606 39.8645 21.9011 42.258 23.2796 44.3424C24.6581 46.4268 26.5316 48.1371 28.7327 49.3204C30.9337 50.5038 33.3937 51.1232 35.8927 51.1235C39.0202 51.1205 42.0701 50.15 44.6241 48.345C47.1781 46.5399 49.111 43.9889 50.1577 41.0417C50.2789 40.6985 50.4666 40.3826 50.71 40.1119C50.9534 39.8412 51.2477 39.6211 51.5761 39.4642C51.9045 39.3072 52.2606 39.2165 52.6241 39.1972C52.9876 39.1779 53.3513 39.2304 53.6945 39.3516C54.0377 39.4729 54.3537 39.6606 54.6244 39.9039C54.895 40.1473 55.1151 40.4416 55.2721 40.77C55.429 41.0984 55.5197 41.4546 55.539 41.8181C55.5583 42.1815 55.5059 42.5453 55.3846 42.8885C54.1224 46.4605 51.9026 49.6168 48.9677 52.0125C46.0329 54.4082 42.496 55.951 38.7435 56.4723C34.9911 56.9936 31.1675 56.4733 27.6908 54.9684C24.214 53.4635 21.2179 51.0318 19.0298 47.9391C16.8417 44.8464 15.5459 41.2117 15.2839 37.4323C15.022 33.6528 15.8041 29.8742 17.5446 26.5092C19.2851 23.1442 21.9172 20.3224 25.1531 18.3523C28.389 16.3821 32.1042 15.3394 35.8927 15.3381C38.6887 15.3274 41.4573 15.8893 44.0279 16.9891C46.5985 18.089 48.9166 19.7035 50.8396 21.7333L50.9365 21.8406L51.6825 22.706L54.2233 20.1652C54.3586 20.0268 54.5201 19.9166 54.6984 19.8411C54.8766 19.7657 55.0681 19.7264 55.2617 19.7256C55.4587 19.724 55.6541 19.7615 55.8365 19.8358C56.019 19.9102 56.1848 20.0201 56.3245 20.159C56.4642 20.2979 56.575 20.4631 56.6505 20.6451C56.7259 20.8271 56.7645 21.0222 56.764 21.2192L56.7692 31.526Z" fill="#2B2B2B"/>
             </svg>
-          
+
           </div>
           <div class="lazer-section-five-content">
             <h2 class="lazer-section-five-content-eefdf">
@@ -359,18 +359,8 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         letter-spacing: 0px !important;
       }
 
-      button:not(.copy-button) {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      button {
         cursor: pointer;
-        margin-right: auto;
-        margin-left: auto;
-      }
-
-      #lazerpay-qr-code {
-        display: flex;
-        justify-content: center
       }
 
       img {
@@ -398,14 +388,14 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
       }
 
       .vender-cover-logo {
-        height: 55px;
-        width: 55px;
+        height: 50px;
+        width: 50px;
       }
 
       .vender-cover-logo img {
         max-width: 100%;
         object-fit: cover
-      } 
+      }
 
       input.form-control {
         height: 52px;
@@ -446,7 +436,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         z-index: 999999999999;
         font-family: "Sohne-Buchin";
         font-size: 11px;
-        background: white;
+        background: rgba(255, 255, 255, 0.21);
       }
 
       .LazerCheckout-container-wrapper {
@@ -821,8 +811,6 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
 
       .lazer-section-four-barcode figure {
         margin: 10px auto;
-        display: flex;
-        justify-content: center
       }
 
       .lazer-section-four-barcode button {
@@ -839,10 +827,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         font-size: 12px;
         line-height: 24px;
         color: #636363;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 10px auto 17px auto;
+        margin-bottom: 17px;
       }
 
       button.go-back-button {
@@ -1440,40 +1425,49 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
         }
       }
 
+
       /* Tem fix checkout breaking style */
       .waiting-spinner {
           display: flex;
           justify-content: center;
           margin: auto;
       }
+
       #lazerpay-qr-code {
           display: flex;
           justify-content: center;
       }
+
       #lazer-section-four-confrim-transferBtn {
           display: flex;
           justify-content: center;
           align-items: center;
           margin: 20px auto 30px auto;
       }
+
       #lazer-section-six-made-transfer-tryAgain {
           display: flex;
           justify-content: center;
           align-items: center;
           margin: auto;
       }
+
       #section6 svg {
           margin: auto;
       }
+
       #section7 svg {
           margin: auto;
       }
+
       #section8 svg {
           margin: auto;
       }
+
       #section9 svg {
           margin: auto;
       }
+
       #modal-closure-btn {
           padding: 0 0px 3px 1px;
       }
@@ -1498,7 +1492,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
               <a role="button" tabindex="0" data-id=${a} data-coin=${l} id=${l} class="display-flex-between lazer-section-three-coin-wrapper">
                 <div class="display-flex-align-center lazer-section-three-coin-container">
                   <div class="coin-image">
-                    <img src=${o} alt=${r} /> 
+                    <img src=${o} alt=${r} />
                   </div>
                   <div>
                     <h2>${r}</h2>
