@@ -12,7 +12,7 @@ function LazerCheckout({
   onClose: u,
   onError: d,
 }) {
-  const m = r?.includes("test"),
+  const m = r?.includes("tes"),
     p = "https://api.lazerpay.engineering/api/v1/coins",
     h = "https://api.lazerpay.engineering/api/v1/transaction/initialize",
     f = "https://api.lazerpay.engineering/api/v1/transaction/verify",
