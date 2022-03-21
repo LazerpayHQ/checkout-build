@@ -1,85 +1,38 @@
-function LazerCheckout({
-  email: e = "",
-  amount: t = 0,
-  name: i = "",
-  coin: n = "",
-  currency: o = "",
-  logo: a = "",
-  key: r = "",
-  reference: s = "",
-  acceptPartialPayment: l = !1,
-  onSuccess: c,
-  onClose: m,
-  onError: d,
-}) {
-  const u = r?.includes("test"),
-    p = "https://api.lazerpay.engineering/api/v1/coins",
-    h = "https://api.lazerpay.engineering/api/v1/transaction/initialize",
-    g = "https://api.lazerpay.engineering/api/v1/transaction/verify",
-    f = (e) => (0.01 * parseFloat(e || t)).toFixed(2);
-  var x = parseFloat(t) + parseFloat(f());
-  let C = null;
-  const y = (e) =>
-    parseFloat(Number(e))
-      ? ("" + e).replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
-      : "0.00";
-  let z = document.createElement("div"),
-    v = document.createElement("section"),
-    b = document.createElement("div");
-  (v.id = "__LazerpayPortal__"),
-    z.classList.add("LazerCheckout-overlay"),
-    b.classList.add("LazerCheckout-container-wrapper"),
-    z.appendChild(b),
-    document.body.appendChild(v);
-  let w = v.attachShadow({ mode: "open" });
-  w.appendChild(z);
-  let L,
-    E,
-    k = {},
-    S = !0,
-    H = i,
-    T = s,
-    F = e,
-    V = t,
-    M = n,
-    B = o,
-    j = "",
-    q = { qrReady: !1 };
-  !(function (r) {
-    if (!r.amount) return window.alert("Amount and coin must be passed");
-    if (!r.key) return window.alert("Key must be passed");
-    const e = document.createElement("script");
-    (e.src = "https://js.pusher.com/7.0.3/pusher.min.js"),
-      (e.title = "__LazerpayScript__"),
-      (e.async = !0);
-    var t = () => {
-      L = new Pusher("be52401726705f906656", { cluster: "ap2" });
-    };
-    e.addEventListener("load", t),
-      e.addEventListener("complete", t),
-      e.addEventListener("error", () => {
-        console.log("::::Error connecting Pusher::::");
-      }),
-      document.body.appendChild(e);
-    const i = document.createElement("script");
-    (i.type = "text/javascript"),
-      (i.src =
-        "https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"),
-      (i.title = "__LazerpayScript__"),
-      (i.onload = () => (q.qrReady = !0)),
-      document.body.appendChild(i),
-      (b.innerHTML = (function (e) {
-        return `
-      ${u ? '<div class="Lazer-dev-env">TestNet</div>' : ""}
+function LazerCheckout({email:e="",amount:t=0,name:i="",coin:n="",currency:o="",logo:a="",key:r="",reference:s="",acceptPartialPayment:l=!1,onSuccess:c,onClose:d,onError:p}){const m=r?.includes("test"),h="https://api.lazerpay.engineering/api/v1/coins",f="https://api.lazerpay.engineering/api/v1/transaction/initialize",g="https://api.lazerpay.engineering/api/v1/transaction/verify",u=e=>(.01*parseFloat(e||t)).toFixed(2);var x=parseFloat(t)+parseFloat(u());let y=null;const z=e=>parseFloat(Number(e))?(""+e).replace(/(\d)(?=(\d{3})+(?!\d))/g,"$1,"):"0.00";let C=document.createElement("div"),v=document.createElement("section"),b=document.createElement("div");const w=`
+    @font-face {
+      font-family: "proxima";
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: normal;
+      src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Regular.woff2') format('woff2'), 
+           url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Regular.woff') format('woff');
+    }
+    
+    @font-face {
+      font-family: "proxima";
+      font-style: normal;
+      font-weight: 500;
+      font-stretch: normal;
+      src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Semibold.woff2') format('woff2'), 
+           url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Semibold.woff') format('woff');
+    }
+    
+    @font-face {
+      font-family: "proxima";
+      font-style: normal;
+      font-weight: 700;
+      font-stretch: normal;
+      src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Bold.woff2') format('woff2'), 
+           url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/lazer-font@main/fonts/proxima/ProximaNovaA-Bold.woff') format('woff');
+    }
+  `;function L(e){return function(){if(!document.querySelector('style[title="__LazerpayStyle__"]')){const e=document.createElement("style");e.title="__LazerpayStyle__",e.appendChild(document.createTextNode(w)),document.head.appendChild(e)}}(),`
+      ${m?'<div class="Lazer-dev-env">TestNet</div>':""}
         <div class="LazerCheckout-body">
           <div class="LazerCheckout-container-header-wrapper">
               <div class="LazerCheckout-logo">
-                ${
-                  e.logo
-                    ? `<div class="vendor-cover-logo">
+                ${e.logo?`<div class="vendor-cover-logo">
                         <img src=${e.logo} alt="wallet-img">
-                      </div>`
-                    : `
+                      </div>`:`
                     <svg class="logo-svg" width="348" height="60" viewBox="0 0 348 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M73.1319 0H64.1946V47.4804H96.5214V38.8733H73.1319V0Z" fill="#125BC9"/>
                       <path d="M123.818 16.1122C123.209 15.5193 122.553 14.9759 121.857 14.4873C120.785 13.763 119.634 13.1629 118.426 12.6986C116.894 12.1173 115.266 11.8326 113.627 11.8599C111.394 11.8424 109.182 12.2882 107.13 13.1692C105.154 14.0277 103.374 15.2808 101.899 16.8516C100.362 18.5091 99.1703 20.4552 98.3918 22.577C96.7084 27.3817 96.7084 32.6161 98.3918 37.4208C99.171 39.5432 100.363 41.4901 101.899 43.1491C103.374 44.7187 105.154 45.9707 107.13 46.8286C109.182 47.7109 111.394 48.1568 113.627 48.1379C115.272 48.1645 116.906 47.8665 118.435 47.2612C119.656 46.7727 120.812 46.1356 121.878 45.3644C122.572 44.8444 123.221 44.2666 123.818 43.6371V47.4774H132.098V12.5174H123.818V16.1122ZM121.334 37.8709C119.674 39.6537 117.584 40.5187 114.945 40.5187C112.128 40.5187 109.942 39.642 108.258 37.868C106.575 36.0939 105.742 33.449 105.742 30.0004C105.742 26.5517 106.59 23.9009 108.258 22.1298C109.927 20.3587 112.128 19.479 114.945 19.479C117.576 19.479 119.674 20.3558 121.334 22.1298C122.994 23.9038 123.818 26.5488 123.818 30.0004C123.818 33.4519 122.982 36.0998 121.334 37.8709Z" fill="#125BC9"/>
@@ -93,8 +46,7 @@ function LazerCheckout({
                       <path d="M342.492 51.1219C341.616 51.1375 340.765 51.4118 340.045 51.9102C339.324 52.4087 338.768 53.1091 338.445 53.9232C338.122 54.7373 338.047 55.6288 338.229 56.4855C338.412 57.3422 338.843 58.1257 339.47 58.7375C340.097 59.3493 340.891 59.762 341.752 59.9237C342.613 60.0854 343.502 59.9888 344.308 59.6461C345.114 59.3035 345.801 58.73 346.282 57.998C346.762 57.2659 347.016 56.4079 347.01 55.5321C347.004 54.9456 346.882 54.3662 346.651 53.827C346.421 53.2878 346.086 52.7994 345.666 52.3898C345.246 51.9802 344.75 51.6573 344.205 51.4397C343.661 51.2222 343.079 51.1142 342.492 51.1219ZM342.518 59.0567C341.601 59.0339 340.729 58.6545 340.087 57.999C339.446 57.3436 339.085 56.4637 339.081 55.5463C339.078 54.6289 339.432 53.7464 340.069 53.0861C340.706 52.4259 341.575 52.04 342.492 52.0104C344.456 52.0104 345.879 53.5973 345.879 55.5584C345.879 57.5194 344.456 59.0567 342.518 59.0567Z" fill="#125BC9"/>
                       <path d="M46.9134 29.3786L43.6605 21.5256L23.6642 29.8082L39.4257 14.0467L33.4169 8.0379L17.6554 23.7965L25.938 3.80307L18.085 0.550231L8.49889 23.6913V0.205368H0V38.9618V47.4636H8.49889H47.2582V38.9618H23.7723L46.9134 29.3786Z" fill="#125BC9"/>
                     </svg>
-                  `
-                }
+                  `}
               </div>
 
               <div class="LazerCheckout-header-right">
@@ -104,13 +56,11 @@ function LazerCheckout({
                   </svg>
                 </button>
                 <div class="LazerCheckout-header-right-email">
-                  <span id="LazerCheckoutEmailInput">${e?.email || ""}</span>
+                  <span id="LazerCheckoutEmailInput">${e?.email||""}</span>
                 </div>
                 <div class="LazerCheckout-header-right-amount">
-                  <span id="header-amount">${y(e.amount)} ${e.currency}</span>
-                  <sub id="header--fee" class="header--fee">(${y(
-                    f(),
-                  )} fee)</sub>
+                  <span id="header-amount">${z(e.amount)} ${e.currency}</span>
+                  <sub id="header--fee" class="header--fee">(${z(u())} fee)</sub>
                 </div>
               </div>
           </div>
@@ -169,9 +119,7 @@ function LazerCheckout({
               </button>
               <div class="lazer-section-four-amount-to-pay">
                 <p class="my-0">Amount to pay:</p>
-                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">${y(
-                  e.amount,
-                )} ${e.coin}</h2>
+                <h2 class="lazer-section-four-amount-to-payNOW lazer-section21232-amoun-coin-12332">${z(e.amount)} ${e.coin}</h2>
               </div>
             </div>
 
@@ -237,7 +185,7 @@ function LazerCheckout({
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
               <h2 class="lazer-section21232-amoun-coin-12332">
-              ${y(e.amount)} ${e.currency}</h2>
+              ${z(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -264,9 +212,7 @@ function LazerCheckout({
             </button>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section21232-amoun-coin-12332" >${y(e.amount)} ${
-          e.currency
-        }</h2>
+              <h2 class="lazer-section21232-amoun-coin-12332" >${z(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -287,9 +233,7 @@ function LazerCheckout({
           <div class="lazer-section-five-content">
             <h2 class="lazer-section-five-content-eefdf">Payment confirmed!</h2>
             <div class="lazer-section-five-content-jefjhef">
-              <p  class="lazer-section-seveen-content-xxed lazer-section-success-amount lazer-section21232-amoun-coin-12332">${y(
-                e.amount,
-              )} ${e.coin} </p>
+              <h3 data-id="confirmedAmount" id="confirmedAmount" class="lazer-section-seveen-content-xxed lazer-section-success-amount lazer-section21232-amoun-coin-12332">${z(e.amount)} ${e.coin} </h3>
               <p class="lazer-section-seveen-content-xxed lazer-section-PaidTODATA">Paid to Lazer Technologies</p>
             </div>
             <p class="lazer-section-five-content-ppss">
@@ -298,12 +242,11 @@ function LazerCheckout({
             </p>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 data-id="footer-amount" class="lazer-section-success-amount"> ${y(
-                e.amount,
-              )} ${e.currency}</h2>
+              <h2 data-id="footer-amount" class="lazer-section-success-amount"> ${z(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
+
         <div id="section8" class="lazer-section-eight lazer-section-hide" >
           <div class="lazer-section-six-heading">
             <svg width="73" height="72" viewBox="0 0 73 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -325,9 +268,7 @@ function LazerCheckout({
           <div class="lazer-section-five-content">
             <h2 class="lazer-section-five-content-eefdf">Partial payment received!</h2>
             <div class="lazer-section-eight-content-jefjhef">
-              <p class="lazer-section-eight-content-xxed lazer-section-partial-amount-amountPaid lazer-section21232-amoun-coin-12332">${y(
-                e.amount,
-              )} ${e.coin}</p>
+              <p class="lazer-section-eight-content-xxed lazer-section-partial-amount-amountPaid lazer-section21232-amoun-coin-12332">${z(e.amount)} ${e.coin}</p>
               <p class="lazer-section-eight-content-xxed2 lazer-section-PaidTODATA-Partial">Paid to Lazer Technologies </p>
             </div>
 
@@ -351,12 +292,11 @@ function LazerCheckout({
 
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section-partial-amount lazer-section21232-amoun-coin-12332">${y(
-                e.amount,
-              )} ${e.currency}</h2>
+              <h2 class="lazer-section-partial-amount lazer-section21232-amoun-coin-12332">${z(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
+
         <div id="section9" class="lazer-section-nine lazer-section-hide" >
           <div class="lazer-section-six-heading">
             <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -380,9 +320,7 @@ function LazerCheckout({
             </p>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
-              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${y(
-                e.amount,
-              )} ${e.currency}</h2>
+              <h2 class="lazer-section-failure-amount lazer-section21232-amoun-coin-12332">${z(e.amount)} ${e.currency}</h2>
             </div>
           </div>
         </div>
@@ -390,11 +328,14 @@ function LazerCheckout({
     </div>
 
     <div class="LazerCheckout-footer">
-      <svg width="134" height="18" viewBox="0 0 134 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8.4 5.13333H7.93333V2.8C7.93333 2.05739 7.63833 1.3452 7.11323 0.820101C6.58813 0.294999 5.87594 0 5.13333 0C4.39073 0 3.67854 0.294999 3.15343 0.820101C2.62833 1.3452 2.33333 2.05739 2.33333 2.8V5.13333H1.86667C1.37176 5.13387 0.897282 5.33071 0.547331 5.68066C0.19738 6.03061 0.000540416 6.5051 0 7V12.1333C0.000540416 12.6282 0.19738 13.1027 0.547331 13.4527C0.897282 13.8026 1.37176 13.9995 1.86667 14H8.4C8.89491 13.9995 9.36938 13.8026 9.71934 13.4527C10.0693 13.1027 10.2661 12.6282 10.2667 12.1333V7C10.2661 6.5051 10.0693 6.03061 9.71934 5.68066C9.36938 5.33071 8.89491 5.13387 8.4 5.13333ZM7 5.13333H3.26667V2.8C3.26667 2.30493 3.46333 1.83014 3.8134 1.48007C4.16347 1.13 4.63826 0.933333 5.13333 0.933333C5.6284 0.933333 6.1032 1.13 6.45327 1.48007C6.80333 1.83014 7 2.30493 7 2.8V5.13333Z" fill="black"/>
-        <path d="M22.5266 9.664C24.4946 9.664 25.6466 8.704 25.6466 7.024C25.6466 5.344 24.5066 4.384 22.5266 4.384H19.0826V13H20.6186V9.664H22.5266ZM20.6186 5.704H22.4426C23.5466 5.704 24.1346 6.16 24.1346 7.024C24.1346 7.876 23.5346 8.344 22.4426 8.344H20.6186V5.704ZM31.1719 7.54C30.6079 6.916 29.8399 6.58 28.9399 6.58C28.0399 6.58 27.2719 6.916 26.7079 7.54C26.1799 8.116 25.9039 8.932 25.9039 9.856C25.9039 10.78 26.1799 11.596 26.7079 12.172C27.2719 12.796 28.0399 13.132 28.9399 13.132C29.8399 13.132 30.6079 12.796 31.1719 12.172C31.6999 11.596 31.9759 10.78 31.9759 9.856C31.9759 8.932 31.6999 8.116 31.1719 7.54ZM28.9399 7.792C29.9119 7.792 30.5239 8.572 30.5239 9.856C30.5239 11.14 29.9119 11.92 28.9399 11.92C27.9679 11.92 27.3559 11.14 27.3559 9.856C27.3559 8.572 27.9679 7.792 28.9399 7.792ZM34.8636 10.876L33.7236 6.7H32.2476L34.1436 13H35.3916L36.5436 8.872L37.6956 13H38.9436L40.8396 6.7H39.4116L38.2956 10.876L37.1676 6.7H35.9796L34.8636 10.876ZM44.1632 13.132C45.4112 13.132 46.4192 12.472 46.8632 11.368L45.6272 10.9C45.4352 11.524 44.8832 11.908 44.1632 11.908C43.2392 11.908 42.5912 11.236 42.4832 10.168H46.8992V9.688C46.8992 8.764 46.6472 8.008 46.1432 7.444C45.6392 6.868 44.9552 6.58 44.1032 6.58C43.2392 6.58 42.4712 6.928 41.9072 7.564C41.3912 8.152 41.1032 8.98 41.1032 9.856C41.1032 10.78 41.3912 11.596 41.9192 12.184C42.4832 12.796 43.2632 13.132 44.1632 13.132ZM44.0912 7.792C44.9192 7.792 45.4352 8.308 45.4472 9.088H42.5552C42.7592 8.26 43.3232 7.792 44.0912 7.792ZM51.1476 6.664C50.3676 6.664 49.7076 7.048 49.4196 7.636V6.7H47.9796V13H49.4196V9.688C49.4196 8.728 50.0676 8.092 51.0276 8.092C51.2196 8.092 51.3636 8.092 51.5556 8.128V6.688C51.3996 6.676 51.2796 6.664 51.1476 6.664ZM54.9093 13.132C56.1573 13.132 57.1653 12.472 57.6093 11.368L56.3733 10.9C56.1813 11.524 55.6293 11.908 54.9093 11.908C53.9853 11.908 53.3373 11.236 53.2293 10.168H57.6453V9.688C57.6453 8.764 57.3933 8.008 56.8893 7.444C56.3853 6.868 55.7013 6.58 54.8493 6.58C53.9853 6.58 53.2173 6.928 52.6533 7.564C52.1373 8.152 51.8493 8.98 51.8493 9.856C51.8493 10.78 52.1373 11.596 52.6653 12.184C53.2293 12.796 54.0093 13.132 54.9093 13.132ZM54.8373 7.792C55.6653 7.792 56.1813 8.308 56.1933 9.088H53.3013C53.5053 8.26 54.0693 7.792 54.8373 7.792ZM61.1017 13.132C61.8577 13.132 62.4817 12.856 62.9137 12.34V13H64.3537V4.384H62.9137V7.372C62.4817 6.856 61.8577 6.58 61.1017 6.58C60.2497 6.58 59.5177 6.928 59.0257 7.588C58.5817 8.176 58.3297 8.98 58.3297 9.856C58.3297 10.732 58.5817 11.536 59.0257 12.124C59.5177 12.784 60.2497 13.132 61.1017 13.132ZM62.9497 10.048C62.9497 11.152 62.3137 11.872 61.3897 11.872C60.3817 11.872 59.7817 11.104 59.7817 9.856C59.7817 8.608 60.3817 7.84 61.3897 7.84C62.3377 7.84 62.9497 8.56 62.9497 9.676V10.048ZM73.6631 12.124C74.1071 11.536 74.3591 10.732 74.3591 9.856C74.3591 8.98 74.1071 8.176 73.6631 7.588C73.1711 6.928 72.4391 6.58 71.5871 6.58C70.8311 6.58 70.2071 6.856 69.7751 7.372V4.384H68.3351V13H69.7751V12.34C70.2071 12.856 70.8311 13.132 71.5871 13.132C72.4391 13.132 73.1711 12.784 73.6631 12.124ZM71.2991 7.84C72.3071 7.84 72.9071 8.608 72.9071 9.856C72.9071 11.104 72.3071 11.872 71.2991 11.872C70.3751 11.872 69.7391 11.152 69.7391 10.048V9.676C69.7391 8.56 70.3511 7.84 71.2991 7.84ZM80.6826 6.7H79.1946L77.6826 11.116L76.1346 6.7H74.6226L76.9146 12.772L76.6746 13.36C76.4826 13.84 76.2786 13.996 75.7626 13.996C75.6186 13.996 75.5226 13.996 75.2826 13.96V15.172C75.5706 15.208 75.6666 15.208 75.8706 15.208C76.9866 15.208 77.6586 14.752 78.0906 13.588L80.6826 6.7Z" fill="#666666"/>
-        <path d="M89.5848 13V11.656H85.5288V4.384H83.9928V13H89.5848ZM94.1759 12.4C94.4039 12.928 94.9679 13.108 95.9879 13V11.884C95.5919 11.932 95.4359 11.812 95.4359 11.464V8.752C95.4359 7.348 94.5839 6.58 93.0119 6.58C91.7159 6.58 90.7199 7.3 90.3839 8.44L91.7399 8.752C91.9199 8.116 92.2919 7.828 92.9519 7.828C93.6719 7.828 94.0319 8.164 94.0319 8.8V8.908L92.2919 9.268C90.8519 9.568 90.1799 10.204 90.1799 11.248C90.1799 11.788 90.3839 12.244 90.7799 12.592C91.1759 12.94 91.6919 13.108 92.3039 13.108C93.1079 13.108 93.7799 12.844 94.1759 12.4ZM92.5199 11.956C91.9559 11.956 91.6079 11.668 91.6079 11.188C91.6079 10.72 91.8959 10.48 92.6759 10.3L94.0319 10.012V10.78C94.0319 11.488 93.3839 11.956 92.5199 11.956ZM98.4869 11.776L101.775 7.792V6.7H96.7229V7.924H100.059L96.6749 11.92V13H101.811V11.776H98.4869ZM105.487 13.132C106.735 13.132 107.743 12.472 108.187 11.368L106.951 10.9C106.759 11.524 106.207 11.908 105.487 11.908C104.563 11.908 103.915 11.236 103.807 10.168H108.223V9.688C108.223 8.764 107.971 8.008 107.467 7.444C106.963 6.868 106.279 6.58 105.427 6.58C104.563 6.58 103.795 6.928 103.231 7.564C102.715 8.152 102.427 8.98 102.427 9.856C102.427 10.78 102.715 11.596 103.243 12.184C103.807 12.796 104.587 13.132 105.487 13.132ZM105.415 7.792C106.243 7.792 106.759 8.308 106.771 9.088H103.879C104.083 8.26 104.647 7.792 105.415 7.792ZM112.472 6.664C111.692 6.664 111.032 7.048 110.744 7.636V6.7H109.304V13H110.744V9.688C110.744 8.728 111.392 8.092 112.352 8.092C112.544 8.092 112.688 8.092 112.88 8.128V6.688C112.724 6.676 112.604 6.664 112.472 6.664ZM117.378 9.664C119.346 9.664 120.498 8.704 120.498 7.024C120.498 5.344 119.358 4.384 117.378 4.384H113.934V13H115.47V9.664H117.378ZM115.47 5.704H117.294C118.398 5.704 118.986 6.16 118.986 7.024C118.986 7.876 118.386 8.344 117.294 8.344H115.47V5.704ZM124.762 12.4C124.99 12.928 125.554 13.108 126.574 13V11.884C126.178 11.932 126.022 11.812 126.022 11.464V8.752C126.022 7.348 125.17 6.58 123.598 6.58C122.302 6.58 121.306 7.3 120.97 8.44L122.326 8.752C122.506 8.116 122.878 7.828 123.538 7.828C124.258 7.828 124.618 8.164 124.618 8.8V8.908L122.878 9.268C121.438 9.568 120.766 10.204 120.766 11.248C120.766 11.788 120.97 12.244 121.366 12.592C121.762 12.94 122.278 13.108 122.89 13.108C123.694 13.108 124.366 12.844 124.762 12.4ZM123.106 11.956C122.542 11.956 122.194 11.668 122.194 11.188C122.194 10.72 122.482 10.48 123.262 10.3L124.618 10.012V10.78C124.618 11.488 123.97 11.956 123.106 11.956ZM132.808 6.7H131.32L129.808 11.116L128.26 6.7H126.748L129.04 12.772L128.8 13.36C128.608 13.84 128.404 13.996 127.888 13.996C127.744 13.996 127.648 13.996 127.408 13.96V15.172C127.696 15.208 127.792 15.208 127.996 15.208C129.112 15.208 129.784 14.752 130.216 13.588L132.808 6.7Z" fill="#003585"/>
-      </svg>
+        <p id="lz-footer-attribute">
+          <svg width="11" height="14" viewBox="0 0 11 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.4 5.13333H7.93333V2.8C7.93333 2.05739 7.63833 1.3452 7.11323 0.820101C6.58813 0.294999 5.87594 0 5.13333 0C4.39073 0 3.67854 0.294999 3.15343 0.820101C2.62833 1.3452 2.33333 2.05739 2.33333 2.8V5.13333H1.86667C1.37176 5.13387 0.897282 5.33071 0.547331 5.68066C0.19738 6.03061 0.000540416 6.5051 0 7V12.1333C0.000540416 12.6282 0.19738 13.1027 0.547331 13.4527C0.897282 13.8026 1.37176 13.9995 1.86667 14H8.4C8.89491 13.9995 9.36938 13.8026 9.71934 13.4527C10.0693 13.1027 10.2661 12.6282 10.2667 12.1333V7C10.2661 6.5051 10.0693 6.03061 9.71934 5.68066C9.36938 5.33071 8.89491 5.13387 8.4 5.13333ZM7 5.13333H3.26667V2.8C3.26667 2.30493 3.46333 1.83014 3.8134 1.48007C4.16347 1.13 4.63826 0.933333 5.13333 0.933333C5.6284 0.933333 6.1032 1.13 6.45327 1.48007C6.80333 1.83014 7 2.30493 7 2.8V5.13333Z" fill="black"/>
+          </svg>
+          <span> 
+            Powered by <a target="_blank" href="https://lazerpay.finance">Lazerpay</a>
+          <span>
+        </p>
         <div id="confirm-close">
           <h3>Are you sure?</h3>
           <div class="btn-flex">
@@ -409,21 +350,8 @@ function LazerCheckout({
     </div>
 
     <style>
-      @font-face {
-        font-family: 'Sohne';
-        src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot'); /* IE9 Compat Modes */
-        src: url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.woff') format('woff'), /* Modern Browsers */
-          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.ttf')  format('truetype'), /* Safari, Android, iOS */
-          url('https://cdn.jsdelivr.net/gh/LazerPay-Finance/Sohne-font/Sohne-Buch.svg#svgFontName') format('svg'); /* Legacy iOS */
-      }
-
-      body {
-        font-family: Sohne;
-
-      }
-
-      body * {
+      .LazerCheckout-body * {
+        font-family: proxima !important;
         letter-spacing: 0px !important;
       }
 
@@ -435,8 +363,16 @@ function LazerCheckout({
         max-width: 100%
       }
 
+      .font-400 {
+        font-weight: 400
+      }
+      
       .font-500 {
         font-weight: 500
+      }
+
+      .font-700 {
+        font-weight: 700
       }
 
       .LazerCheckout-overlay ::-webkit-scrollbar {
@@ -479,6 +415,27 @@ function LazerCheckout({
         border-radius: 100%
       }
 
+      #lz-footer-attribute {
+        margin: 0;
+        font-weight: 500;
+        display: flex;
+        align-items: baseline;
+        font-size: 12px;
+        color: #666666;
+        text-align: center;
+      }
+
+      #lz-footer-attribute svg {
+        margin-right: 8px;
+        position: relative;
+        top: 1px
+      }
+      
+      #lz-footer-attribute a {
+        color: #003585;
+        text-decoration: none
+      }
+
       .header--fee {
 
         font-size: 12px;
@@ -502,6 +459,7 @@ function LazerCheckout({
       }
 
       input.form-control::placeholder{
+
         font-weight: normal;
         font-size: 15px;
         line-height: 20px;
@@ -548,6 +506,7 @@ function LazerCheckout({
         border-radius: 8px 8px 0px 0px;
         font-size: 12px;
         font-weight: 500;
+        font-family: proxima;
       }
 
       .LazerCheckout-body {
@@ -567,9 +526,13 @@ function LazerCheckout({
       }
 
       .LazerCheckout-footer {
-        display:flex;
+        display: flex;
         justify-content:center;
         margin-top: 18px;
+      }
+
+      .LazerCheckout-footer * {
+        font-family: proxima
       }
 
       .LazerCheckoutButton {
@@ -595,6 +558,7 @@ function LazerCheckout({
 
       .LazerCheckout-close-btn {
         font-size: 20px;
+
         padding-top: 3px !important;
         position: absolute;
         border: 1px solid #DFDFDF;
@@ -649,6 +613,7 @@ function LazerCheckout({
 
       /* SECTION ONE */
       .lazer-section-one h2{
+
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -704,6 +669,7 @@ function LazerCheckout({
       .lazer-section-one-input-wrapper h2 {
         justify-content: flex-start;
         text-align: start;
+
         font-size: 14px;
         line-height: 20px;
         letter-spacing: 0.01em;
@@ -728,6 +694,7 @@ function LazerCheckout({
         justify-content: center;
         align-items: center;
         display: flex;
+
         font-style: normal;
         font-weight: 500;
         font-size: 16px;
@@ -761,7 +728,6 @@ function LazerCheckout({
         align-items: center;
         padding: 40px 20px;
         border-bottom: 0.5px solid #EEEEEE;;
-        cursor: pointer;
         transition: .3s ease-in;
       }
 
@@ -795,6 +761,7 @@ function LazerCheckout({
       }
 
       .lazer-section-two-paymentOption-info {
+
         font-style: normal;
         font-weight: normal;
         font-size: 11px;
@@ -876,6 +843,7 @@ function LazerCheckout({
       .lazer-section-four-heading h2{
         margin: 0;
         padding: 0;
+
         font-weight: 500;
         font-size: 14px;
         line-height: 20px;
@@ -908,6 +876,7 @@ function LazerCheckout({
         border: 1px solid #CCD7E7;
         box-sizing: border-box;
         border-radius: 20px;
+
         font-style: normal;
         font-weight: normal;
         font-size: 12px;
@@ -924,6 +893,7 @@ function LazerCheckout({
         border: 1px solid #CCD7E7;
         box-sizing: border-box;
         border-radius: 20px;
+
         font-style: normal;
         font-weight: normal;
         font-size: 12px;
@@ -990,6 +960,7 @@ function LazerCheckout({
       }
 
       .lazer-section-four-address-input p {
+
         font-weight: 500;
         font-size: 10px;
         line-height: 12px;
@@ -1002,6 +973,7 @@ function LazerCheckout({
       }
 
       .lazer-section-four-address-input h2 {
+
         font-size: 13px;
         line-height: 12px;
         letter-spacing: 0.01em;
@@ -1098,6 +1070,7 @@ function LazerCheckout({
       }
 
       .lazer-section-five-content-xxed {
+
         padding: 0px;
         margin: 0px;
         font-size: 14px;
@@ -1108,6 +1081,7 @@ function LazerCheckout({
       }
 
       .lazer-section-five-content-ppss{
+
         max-width: 80%;
         padding: 0px;
         margin: auto;
@@ -1118,6 +1092,7 @@ function LazerCheckout({
       }
 
       .lazer-section-five-content-sdefe{
+
         padding: 0px;
         margin: 0px;
         font-weight: 500;
@@ -1152,6 +1127,7 @@ function LazerCheckout({
       }
 
       .lazer-section-footer-amount-ppss p{
+
         font-size: 12px;
         line-height: 12px;
         color: #666666;
@@ -1161,6 +1137,7 @@ function LazerCheckout({
       }
 
       .lazer-section-footer-amount-ppss h2{
+
         font-size: 12px;
         font-weight: 500;
         line-height: 12px;
@@ -1184,22 +1161,25 @@ function LazerCheckout({
         margin-bottom: 16px;
       }
 
+      #confirmedAmount {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      #confirmedAmount sub {
+        font-size: 12px !important;
+        color: #666;
+        margin-left: 5px
+      }
+
       .lazer-section-seveen-content-xxed {
-        font-size: 18px;
+        font-size: 16px;
         line-height: 24px;
         text-align: center;
         color: #2B2B2B;
-        margin: 0px;
+        margin: 0px 0 5px;
         padding: 0px;
-      }
-
-      .lazer-section-seveen-content-xxed{
-        font-size: 14px;
-        margin: 0px;
-        padding: 0px;
-        line-height: 24px;
-        text-align: center;
-        color: #666666;
       }
 
       .lazer-section-eight-content-jefjhef{
@@ -1210,6 +1190,7 @@ function LazerCheckout({
       .lazer-section-eight-content-xxed{
         margin: 0px;
         padding: 0px;
+
         font-size: 18px;
         line-height: 24px;
         text-align: center;
@@ -1219,6 +1200,7 @@ function LazerCheckout({
       .lazer-section-eight-content-xxed2{
         margin: 0px;
         padding: 0px;
+
         font-size: 14px;
         line-height: 24px;
         text-align: center;
@@ -1228,6 +1210,7 @@ function LazerCheckout({
       .lazer-section-eight-content-xxed{
         margin: 0px;
         padding: 0px;
+
         font-size: 12px;
         line-height: 18px;
         text-align: center;
@@ -1268,6 +1251,7 @@ function LazerCheckout({
       .lazer-section-five-content-xxedddddee3344ee {
         margin: 0px;
         padding: 0px;
+
         font-size: 12px;
         line-height: 18px;
         text-align: center;
@@ -1277,6 +1261,7 @@ function LazerCheckout({
       .lazer-section-five-content-xxedddddee3344ee06060544433 {
         margin: 0px;
         padding: 0px;
+
         font-size: 12px;
         line-height: 18px;
         text-align: center;
@@ -1304,7 +1289,7 @@ function LazerCheckout({
         font-size: 12px;
         line-height: 24px;
         color: #636363;
-        margin: ${u ? "10px" : "15px"} auto;
+        margin: ${m?"10px":"15px"} auto;
       }
 
       .blur {
@@ -1316,6 +1301,7 @@ function LazerCheckout({
         display: none;
         color: #003585;
         border-radius: 20px;
+
         position: absolute;
         padding: 20px;
         width: 100%;
@@ -1488,7 +1474,7 @@ function LazerCheckout({
           position: fixed;
           left: 0;
           align-items: center;
-          bottom: ${u ? "30px" : "0px"};
+          bottom: ${m?"30px":"0px"};
           width: 100%;
           background: #ffffff;
           flex-direction: column;
@@ -1546,6 +1532,11 @@ function LazerCheckout({
           padding: 0 0px 3px 1px;
       }
 
+      @media(min-width: 768px){
+        .lazer-section-two-paymentOption {
+          cursor: pointer;
+        }
+      }
 
       @media(max-width: 540px){
         .LazerCheckout-body {
@@ -1555,142 +1546,7 @@ function LazerCheckout({
         }
       }
     </style>
-  `;
-      })(r));
-    const s = w.querySelectorAll("#modal-closure-btn"),
-      l = w.querySelector(".lazer-section-one"),
-      c = w.querySelector(".lazer-section-three"),
-      d = w.querySelector("#lazer-section-four-confrim-transferBtn"),
-      p = w.querySelector("#lazer-section-six-made-transfer-tryAgain"),
-      h = w.getElementById("nameInput"),
-      g = w.getElementById("emailInput");
-    setTimeout(() => {
-      $(), l.classList.add("lazer-section-show");
-      const e = w.querySelector(".lazer-section-eight-complete-payment"),
-        t = w.querySelector(".lazer-section-one-button");
-      w.querySelector(".lazer-copy-button").addEventListener("click", W);
-      const i = w.querySelector(".LazerCheckout-body"),
-        n = w.getElementById("confirm-close");
-      s.forEach((e) => {
-        e.addEventListener("click", () => {
-          n.setAttribute("style", "display: flex"),
-            s.forEach((e) =>
-              e?.setAttribute("style", "display: none !important"),
-            ),
-            i.setAttribute(
-              "style",
-              "filter:  blur(8px); transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);",
-            );
-        });
-      });
-      const o = w.querySelectorAll("#confirm-close-btn"),
-        a = {
-          proceed: () =>
-            (function (e = "") {
-              var t = document.querySelectorAll("style"),
-                i = document.querySelectorAll("script");
-              clearTimeout(window.lazerCountDownTimer),
-                clearTimeout(window.lazerConfirmPaymentTimeOut),
-                clearTimeout(window.lazerCopyTimer),
-                w.removeChild(z),
-                m?.(e),
-                document.body.removeChild(v),
-                [...t, ...i].forEach((e) => {
-                  [
-                    "__LazerpayStyle__",
-                    "__LazerpayScript__",
-                    "__LazerpayPortal__",
-                  ].includes(e.title) && e.remove();
-                });
-            })(),
-          abort: () => {
-            i.setAttribute("style", "filter: none"),
-              n.setAttribute("style", "display: none"),
-              s.forEach((e) => e?.setAttribute("style", "display: flex"));
-          },
-        };
-      o.forEach((e) => {
-        e.addEventListener("click", ({ target: e }) =>
-          a[e.getAttribute("data-action")]?.(),
-        );
-      }),
-        d.addEventListener("click", G),
-        h.addEventListener("input", () =>
-          (function (e, t, i) {
-            (H = e.value),
-              Number(e.value.length && t.value.length && R(t.value))
-                ? (i.classList.remove("opacity"), i.removeAttribute("disabled"))
-                : (i.classList.add("opacity"), i.setAttribute("disabled", !0));
-          })(h, g, t),
-        ),
-        g.addEventListener("input", () =>
-          (function (e, t, i) {
-            (F = t.value),
-              Number(e.value.length && t.value.length && R(t.value))
-                ? (i.classList.remove("opacity"), i.removeAttribute("disabled"))
-                : (i.classList.add("opacity"), i.setAttribute("disabled", !0));
-          })(h, g, t),
-        ),
-        e.addEventListener("click", O),
-        t.addEventListener("click", () => {
-          (H = h.value),
-            (F = g.value),
-            (w.querySelector("#LazerCheckoutEmailInput").innerText = g.value),
-            D(c, l),
-            I();
-        }),
-        (async function (e, t, i) {
-          e.email && e.name && (await I(), D(t, i));
-        })(r, c, l),
-        p.addEventListener("click", N);
-    }, 2e3);
-  })({
-    email: F,
-    name: H,
-    amount: x,
-    coin: n,
-    currency: o,
-    logo: a,
-    key: r,
-    lazerpay_user_reference: T,
-    lazerpay_accept_partial_payment: l,
-  });
-  const A = w.querySelectorAll(".lazer-section21232-amoun-coin-12332");
-  let Z = w.querySelectorAll(".lazer-section-three-coin-wrapper");
-  a = w.querySelector(".initial-loader");
-  const P = w.getElementById("go-back-coin-selection");
-  function _(e) {
-    const t = "string" == typeof e ? w.querySelector(e) : e;
-    return (
-      (t.innerHTML =
-        '<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>'),
-      () => {
-        t.innerHTML = "";
-      }
-    );
-  }
-  const $ = _(a);
-  function I() {
-    const c = w.querySelector("#lazer-section-three-spinner");
-    _(c);
-    try {
-      fetch(p, {
-        method: "GET",
-        headers: { "Content-Type": "application/json", "x-api-key": r },
-      })
-        .then((e) => e.json())
-        .then(({ status: e, message: t, data: i = [] } = {}) => {
-          const n = w.getElementById("coins-list");
-          if (($(), 401 === e && t))
-            return (c.innerHTML = `<h3 id="lazer---id--errr">${
-              t || "Error getting coins"
-            }</h3>`);
-          c.innerHTML = "<h3>Select the coin you want to pay with:</h3>";
-          for (var { logo: o, id: a, name: r, status: s, symbol: l } of [
-            ...i,
-          ].reverse())
-            "active" === s &&
-              (n.innerHTML += `
+  `}v.id="__LazerpayPortal__",C.classList.add("LazerCheckout-overlay"),b.classList.add("LazerCheckout-container-wrapper"),C.appendChild(b),document.body.appendChild(v);let E=v.attachShadow({mode:"open"});E.appendChild(C);let k,S,T={},F=!0,B=i,A=s,j=e,q=t,H=n,_=o,P="",M={qrReady:!1};!function(r){if(!r.amount)return window.alert("Amount and coin must be passed");if(!r.key)return window.alert("Key must be passed");const e=document.createElement("script");e.src="https://js.pusher.com/7.0.3/pusher.min.js",e.title="__LazerpayScript__",e.async=!0;var t=()=>{k=new Pusher("be52401726705f906656",{cluster:"ap2"})};e.addEventListener("load",t),e.addEventListener("complete",t),e.addEventListener("error",()=>{console.log("::::Error connecting Pusher::::")}),document.body.appendChild(e);const i=document.createElement("script");i.type="text/javascript",i.src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js",i.title="__LazerpayScript__",i.onload=()=>M.qrReady=!0,document.body.appendChild(i),b.innerHTML=L(r);const s=E.querySelectorAll("#modal-closure-btn"),l=E.querySelector(".lazer-section-one"),c=E.querySelector(".lazer-section-three"),d=E.querySelector("#lazer-section-four-confrim-transferBtn"),p=E.querySelector("#lazer-section-six-made-transfer-tryAgain"),m=E.getElementById("nameInput"),h=E.getElementById("emailInput");setTimeout(()=>{N(),l.classList.add("lazer-section-show");const e=E.querySelector(".lazer-section-eight-complete-payment"),t=E.querySelector(".lazer-section-one-button");E.querySelector(".lazer-copy-button").addEventListener("click",Y);const i=E.querySelector(".LazerCheckout-body"),n=E.getElementById("confirm-close");s.forEach(e=>{e.addEventListener("click",()=>{n.setAttribute("style","display: flex"),s.forEach(e=>e?.setAttribute("style","display: none !important")),i.setAttribute("style","filter:  blur(8px); transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);")})});const o=E.querySelectorAll("#confirm-close-btn"),a={proceed:()=>O(),abort:()=>{i.setAttribute("style","filter: none"),n.setAttribute("style","display: none"),s.forEach(e=>e?.setAttribute("style","display: flex"))}};o.forEach(e=>{e.addEventListener("click",({target:e})=>a[e.getAttribute("data-action")]?.())}),d.addEventListener("click",Q),m.addEventListener("input",()=>function(e,t,i){B=e.value,Number(e.value.length&&t.value.length&&U(t.value))?(i.classList.remove("opacity"),i.removeAttribute("disabled")):(i.classList.add("opacity"),i.setAttribute("disabled",!0))}(m,h,t)),h.addEventListener("input",()=>function(e,t,i){j=t.value,Number(e.value.length&&t.value.length&&U(t.value))?(i.classList.remove("opacity"),i.removeAttribute("disabled")):(i.classList.add("opacity"),i.setAttribute("disabled",!0))}(m,h,t)),e.addEventListener("click",G),t.addEventListener("click",()=>{B=m.value,j=h.value,E.querySelector("#LazerCheckoutEmailInput").innerText=h.value,R(c,l),Z()}),async function(e,t,i){e.email&&e.name&&(await Z(),R(t,i))}(r,c,l),p.addEventListener("click",W)},2e3)}({email:j,name:B,amount:x,coin:n,currency:o,logo:a,key:r,lazerpay_user_reference:A,lazerpay_accept_partial_payment:l});const $=E.querySelectorAll(".lazer-section21232-amoun-coin-12332");let V=E.querySelectorAll(".lazer-section-three-coin-wrapper");a=E.querySelector(".initial-loader");const D=E.getElementById("go-back-coin-selection");function I(e){const t="string"==typeof e?E.querySelector(e):e;return t.innerHTML='<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>',()=>{t.innerHTML=""}}const N=I(a);function O(e=""){var t=document.querySelectorAll("style"),i=document.querySelectorAll("script");clearTimeout(window.lazerCountDownTimer),clearTimeout(window.lazerConfirmPaymentTimeOut),clearTimeout(window.lazerCopyTimer),E.removeChild(C),d?.(e),document.body.removeChild(v),[...t,...i].forEach(e=>{["__LazerpayStyle__","__LazerpayScript__","__LazerpayPortal__"].includes(e.title)&&e.remove()})}function Z(){const c=E.querySelector("#lazer-section-three-spinner");I(c);try{fetch(h,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":r}}).then(e=>e.json()).then(({status:e,message:t,data:i=[]}={})=>{const n=E.getElementById("coins-list");if(N(),401===e&&t)return c.innerHTML=`<h3 id="lazer---id--errr">${t||"Error getting coins"}</h3>`;c.innerHTML="<h3>Select the coin you want to pay with:</h3>";for(var{logo:o,id:a,name:r,status:s,symbol:l}of[...i].reverse())"active"===s&&(n.innerHTML+=`
               <a role="button" tabindex="0" data-id=${a} data-coin=${l} id=${l} class="display-flex-between lazer-section-three-coin-wrapper">
                 <div class="display-flex-align-center lazer-section-three-coin-container">
                   <div class="coin-image">
@@ -1706,281 +1562,5 @@ function LazerCheckout({
                   </svg>
                 </div>
               </a>
-            `);
-        })
-        .finally(() => {
-          $(),
-            Q({ isDisabled: !1 }),
-            (Z = w.querySelectorAll(".lazer-section-three-coin-wrapper"));
-          for (let e = 0; e < Z.length; e++) {
-            const t = Z[e];
-            t.addEventListener("click", () => Y(t?.getAttribute("data-coin")));
-          }
-        });
-    } catch (e) {
-      return (
-        $(),
-        (c.innerHTML = `<h3 id="lazer---id--errr">${
-          e?.message || "Error getting coins"
-        }</h3>`)
-      );
-    }
-  }
-  function D(e, t) {
-    t.classList.remove("lazer-section-show"),
-      t.classList.add("lazer-section-hide"),
-      e.classList.remove("lazer-section-hide"),
-      e.classList.add("lazer-section-show");
-  }
-  function O() {
-    var e = w.querySelector(".lazer-section-four"),
-      t = w.querySelector(".lazer-section-eight");
-    let i = w.getElementById("header--fee"),
-      n = w.getElementById("header-amount");
-    if ((D(e, t), U(S), l)) {
-      const o = (C || {})["data"],
-        a = o?.actualAmount - o?.amountPaid;
-      A.forEach((e) => (e.innerText = y(a) + " " + o?.currency)),
-        (n.innerText = y(a) + " " + o?.currency),
-        (i.innerText = `(${y(f(a))} fee)`);
-      t = { ...E, amount: a };
-      (E = t), Y(o?.coin, E);
-    }
-  }
-  function N() {
-    var e = w.querySelector(".lazer-section-six");
-    D(w.querySelector(".lazer-section-four"), e),
-      U(S),
-      fetch(h, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-api-key": E.key },
-        body: JSON.stringify({ ...E }),
-      })
-        .then(async (e) => {
-          e = await e.json();
-          k = e;
-          const t = L.subscribe("DEPOSIT_EVENT");
-          t.bind("" + e.address, (e) => {
-            J();
-          });
-        })
-        .catch((e) => {
-          w.querySelector(
-            "#lazer-section-three-spinner",
-          ).innerHTML = `<h3 id="lazer---id--errr">${
-            e?.message || "Something went wrong. Please try again."
-          }</h3>`;
-        });
-  }
-  function R(e) {
-    return !!String(e)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      );
-  }
-  function G() {
-    (w.getElementById("lazerSectionProgressBar").innerText = "0:0"),
-      (w.getElementById("confirm-payment-amount").innerText =
-        k?.cryptoAmount + " " + k?.coin),
-      (S = !1),
-      clearTimeout(window.lazerCountDownTimer);
-    var e = w.querySelector(".lazer-section-four");
-    D(w.querySelector(".lazer-section-five"), e),
-      (window.lazerConfirmPaymentTimeOut = setTimeout(() => {
-        (w.getElementById("lazerSectionProgressBar").innerHTML = "0:0"),
-          D(
-            w.querySelector(".lazer-section-six"),
-            w.querySelector(".lazer-section-five"),
-          );
-      }, 6e5));
-  }
-  function W() {
-    (w.querySelector(".lazer-copy-button-text").innerText = "Copied"),
-      navigator.clipboard.writeText(k.address),
-      setTimeout(() => {
-        w.querySelector(".lazer-copy-button-text").innerText = "Copy";
-      }, 3e3);
-  }
-  function U(s, e) {
-    if (((w.getElementById("lazerSectionProgressBar").innerHTML = "4:59"), e))
-      return (
-        clearTimeout(window.lazerCountDownTimer),
-        void (w.getElementById("lazerSectionProgressBar").innerHTML = "0:0")
-      );
-    function l(e) {
-      return e < 0 && (e = "59"), String(e).padStart(2, 0);
-    }
-    !(function e() {
-      let t = w.getElementById("lazerSectionProgressBar").innerHTML;
-      let i = t.split(/[:]+/);
-      let n = i[0];
-      let o = l(i[1] - 1);
-      59 == o && (n -= 1);
-      if (n < 0) return;
-      w.getElementById("lazerSectionProgressBar").innerHTML = n + ":" + o;
-      if (0 == n && 0 == o && s) {
-        clearTimeout(window.lazerCountDownTimer),
-          (w.getElementById("lazerSectionProgressBar").innerHTML = "0:0");
-        const a = w.querySelector(".lazer-section-six "),
-          r = w.querySelector(".lazer-section-four ");
-        D(a, r);
-      }
-      window.lazerCountDownTimer = setTimeout(e, 1e3);
-    })();
-  }
-  function Q({ isDisabled: t = !0, excludedCoins: i = [] } = {}) {
-    Z?.forEach((e) =>
-      i.includes(e.getAttribute("data-coin"))
-        ? void e.setAttribute(
-            "style",
-            `pointer-events: ${t ? "none" : "initial"};`,
-          )
-        : null,
-    );
-  }
-  function Y(t, e) {
-    Q(),
-      document
-        .querySelectorAll(".lazer-section-coin-address")
-        .forEach((e) => (e.innerText = t + " Address")),
-      document
-        .querySelectorAll(".lazer-section21232-amoun-coin-12332")
-        .forEach((e) => (e.innerText = y(V) + " " + o)),
-      (M = t);
-    var i = {
-      reference: T,
-      customer_name: H,
-      customer_email: F,
-      amount: V,
-      currency: B,
-      coin: M,
-      key: r,
-      accept_partial_payment: l,
-    };
-    (E = e || i), _("#lazer-section-three-spinner");
-    fetch(h, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-api-key": E.key },
-      body: JSON.stringify({ ...E }),
-    })
-      .then(async (e) => {
-        Q({ isDisabled: !1 });
-        let t = await e.json();
-        if ([200, 201, 202].includes(e?.status)) {
-          (j = t?.data?.businessName),
-            (w.querySelector("#lazer-section-three-spinner").innerHTML =
-              "<h3>Select coin you want to pay with:</h3>"),
-            (w.querySelector(
-              ".lazer-section-four-amount-to-payNOW",
-            ).innerText = `${t?.data?.cryptoAmount}  ${t?.data?.coin} `),
-            (w.querySelector(".lazer-section-address").innerText =
-              t?.data?.address.slice(0, 27) + "..."),
-            q.qrReady &&
-              (function ({ address: e, QRElement: t }) {
-                const i = new QRCodeStyling({
-                  width: 130,
-                  height: 130,
-                  type: "svg",
-                  data: e,
-                  image:
-                    "https://res.cloudinary.com/njokuscript/image/upload/v1644612600/logo_eqnl6x.svg",
-                  dotsOptions: { color: "#003585", type: "rounded" },
-                  cornersSquareOptions: { color: "#F18971" },
-                  backgroundOptions: { color: "transparent" },
-                  imageOptions: { crossOrigin: "anonymous", margin: 8 },
-                });
-                (w.querySelector("#lazerpay-qr-code").innerHTML = ""),
-                  i.append(t);
-              })({
-                address: t?.data?.address,
-                amountInBNB: t?.data?.cryptoAmount,
-                QRElement: w.querySelector("#lazerpay-qr-code"),
-              });
-          const i = L.subscribe("DEPOSIT_EVENT");
-          i.bind("" + t?.data?.address, (e) => {
-            J();
-          }),
-            (k = t.data),
-            U(S);
-          const n = w.querySelector(".lazer-section-three"),
-            o = w.querySelector(".lazer-section-four");
-          D(o, n),
-            P.addEventListener("click", () => {
-              D(n, o),
-                U(S, !0),
-                (w.querySelector("#lazerpay-qr-code").innerHTML = "");
-            });
-        } else
-          w.querySelector(
-            "#lazer-section-three-spinner",
-          ).innerHTML = `<h3 id="lazer---id--errr">${
-            t?.message || "Something went wrong. Please try again."
-          }</h3>`;
-      })
-      .catch((e) => {
-        Q({ isDisabled: !1 }),
-          (w.querySelector(
-            "#lazer-section-three-spinner",
-          ).innerHTML = `<h3 id="lazer---id--errr">Error occurred: ${
-            e.message || ""
-          }</h3>`);
-      });
-  }
-  function J() {
-    var e = w.querySelector(".lazer-section-four");
-    const n = w.querySelector(".lazer-section-five");
-    (w.getElementById("lazerSectionProgressBar").innerHTML = "0:0"),
-      (S = !1),
-      clearTimeout(window?.lazerCountDownTimer),
-      clearTimeout(window?.lazerConfirmPaymentTimeOut),
-      D(n, e),
-      fetch(g + "/" + k?.address, {
-        method: "GET",
-        headers: { "Content-Type": "application/json", "x-api-key": r },
-      })
-        .then(async (e) => {
-          const i = await e?.json();
-          C = i;
-          const t = {
-            error: () => {
-              D(w.querySelector(".lazer-section-nine"), n), d?.(i?.data);
-            },
-            confirmed: () => {
-              var e = w.querySelector("#section7");
-              const t = w.querySelectorAll(".lazer-section-success-amount");
-              t.forEach((e) => {
-                if ("footer-amount" !== e.getAttribute("data-id"))
-                  return (e.innerText =
-                    y(i?.data?.amountPaid) + " " + i?.data?.coin);
-              }),
-                (w.querySelector(".lazer-section-PaidTODATA").innerText =
-                  "Paid to " + j),
-                D(e, n),
-                c?.(i?.data);
-            },
-            incomplete: () => {
-              (w.querySelector(
-                ".lazer-section-four-amount-to-payNOW",
-              ).innerText = `${i?.data?.actualAmount - i?.data?.amountPaid}  ${
-                i?.data?.coin
-              } `),
-                (w.querySelector(
-                  ".lazer-section-partial-amount-amountPaid",
-                ).innerText = `${i?.data?.amountPaid} ${i?.data?.coin} (-${y(
-                  i?.data?.feeInCrypto,
-                )} ${i?.data?.coin} fee)`),
-                (w.querySelector(
-                  ".lazer-section-PaidTODATA-Partial",
-                ).innerText = "Paid to " + j),
-                D(w.querySelector(".lazer-section-eight"), n),
-                c && c(i?.data);
-            },
-          };
-          t[i?.data?.status]?.();
-        })
-        .catch((e) => {
-          d?.(e.message || "Something went wrong, please try again.");
-        });
-  }
-}
+            `)}).finally(()=>{N(),K({isDisabled:!1}),V=E.querySelectorAll(".lazer-section-three-coin-wrapper");for(let e=0;e<V.length;e++){const t=V[e];t.addEventListener("click",()=>X(t?.getAttribute("data-coin")))}})}catch(e){return N(),c.innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Error getting coins"}</h3>`}}function R(e,t){t.classList.remove("lazer-section-show"),t.classList.add("lazer-section-hide"),e.classList.remove("lazer-section-hide"),e.classList.add("lazer-section-show")}function G(){var e=E.querySelector(".lazer-section-four"),t=E.querySelector(".lazer-section-eight");let i=E.getElementById("header--fee"),n=E.getElementById("header-amount");if(R(e,t),J(F),l){const o=(y||{})["data"],a=o?.actualAmount-o?.amountPaid;$.forEach(e=>e.innerText=z(a)+" "+o?.currency),n.innerText=z(a)+" "+o?.currency,i.innerText=`(${z(u(a))} fee)`;t={...S,amount:a};S=t,X(o?.coin,S)}}function W(){var e=E.querySelector(".lazer-section-six");R(E.querySelector(".lazer-section-four"),e),J(F),fetch(f,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":S.key},body:JSON.stringify({...S})}).then(async e=>{e=await e.json();T=e;const t=k.subscribe("DEPOSIT_EVENT");t.bind(""+e.address,e=>{ee()})}).catch(e=>{E.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${e?.message||"Something went wrong. Please try again."}</h3>`})}function U(e){return!!String(e).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)}function Q(){E.getElementById("lazerSectionProgressBar").innerText="0:0",E.getElementById("confirm-payment-amount").innerText=z(T?.cryptoAmount)+" "+T?.coin,F=!1,clearTimeout(window.lazerCountDownTimer);var e=E.querySelector(".lazer-section-four");R(E.querySelector(".lazer-section-five"),e),window.lazerConfirmPaymentTimeOut=setTimeout(()=>{E.getElementById("lazerSectionProgressBar").innerHTML="0:0",R(E.querySelector(".lazer-section-six"),E.querySelector(".lazer-section-five"))},6e5)}function Y(){E.querySelector(".lazer-copy-button-text").innerText="Copied",navigator.clipboard.writeText(T.address),setTimeout(()=>{E.querySelector(".lazer-copy-button-text").innerText="Copy"},3e3)}function J(s,e){if(E.getElementById("lazerSectionProgressBar").innerHTML="4:59",e)return clearTimeout(window.lazerCountDownTimer),void(E.getElementById("lazerSectionProgressBar").innerHTML="0:0");function l(e){return e<0&&(e="59"),String(e).padStart(2,0)}!function e(){let t=E.getElementById("lazerSectionProgressBar").innerHTML;let i=t.split(/[:]+/);let n=i[0];let o=l(i[1]-1);59==o&&(n-=1);if(n<0)return;E.getElementById("lazerSectionProgressBar").innerHTML=n+":"+o;if(0==n&&0==o&&s){clearTimeout(window.lazerCountDownTimer),E.getElementById("lazerSectionProgressBar").innerHTML="0:0";const a=E.querySelector(".lazer-section-six "),r=E.querySelector(".lazer-section-four ");R(a,r)}window.lazerCountDownTimer=setTimeout(e,1e3)}()}function K({isDisabled:t=!0,excludedCoins:i=[]}={}){V?.forEach(e=>i.includes(e.getAttribute("data-coin"))?void e.setAttribute("style",`pointer-events: ${t?"none":"initial"};`):null)}function X(t,e){K(),document.querySelectorAll(".lazer-section-coin-address").forEach(e=>e.innerText=t+" Address"),document.querySelectorAll(".lazer-section21232-amoun-coin-12332").forEach(e=>e.innerText=z(q)+" "+o),H=t;var i={reference:A,customer_name:B,customer_email:j,amount:q,currency:_,coin:H,key:r,accept_partial_payment:l};S=e||i,I("#lazer-section-three-spinner");fetch(f,{method:"POST",headers:{"Content-Type":"application/json","x-api-key":S.key},body:JSON.stringify({...S})}).then(async e=>{K({isDisabled:!1});let t=await e.json();if([200,201,202].includes(e?.status)){P=t?.data?.businessName,E.querySelector("#lazer-section-three-spinner").innerHTML="<h3>Select coin you want to pay with</h3>",E.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${z(t?.data?.cryptoAmount)}  ${t?.data?.coin} `,E.querySelector(".lazer-section-address").innerText=t?.data?.address.slice(0,27)+"...",M.qrReady&&function({address:e,QRElement:t}){const i=new QRCodeStyling({width:130,height:130,type:"svg",data:e,image:"https://res.cloudinary.com/njokuscript/image/upload/v1644612600/logo_eqnl6x.svg",dotsOptions:{color:"#003585",type:"rounded"},cornersSquareOptions:{color:"#F18971"},backgroundOptions:{color:"transparent"},imageOptions:{crossOrigin:"anonymous",margin:8}});E.querySelector("#lazerpay-qr-code").innerHTML="",i.append(t)}({address:t?.data?.address,amountInBNB:t?.data?.cryptoAmount,QRElement:E.querySelector("#lazerpay-qr-code")});const i=k.subscribe("DEPOSIT_EVENT");i.bind(""+t?.data?.address,e=>{ee()}),T=t.data,J(F);const n=E.querySelector(".lazer-section-three"),o=E.querySelector(".lazer-section-four");R(o,n),D.addEventListener("click",()=>{R(n,o),J(F,!0),E.querySelector("#lazerpay-qr-code").innerHTML=""})}else E.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">${t?.message||"Something went wrong. Please try again."}</h3>`}).catch(e=>{K({isDisabled:!1}),E.querySelector("#lazer-section-three-spinner").innerHTML=`<h3 id="lazer---id--errr">Error occurred: ${e.message||""}</h3>`})}function ee(){var e=E.querySelector(".lazer-section-four");const n=E.querySelector(".lazer-section-five");E.getElementById("lazerSectionProgressBar").innerHTML="0:0",F=!1,clearTimeout(window?.lazerCountDownTimer),clearTimeout(window?.lazerConfirmPaymentTimeOut),R(n,e),fetch(g+"/"+T?.address,{method:"GET",headers:{"Content-Type":"application/json","x-api-key":r}}).then(async e=>{const i=await e?.json();y=i;const t={error:()=>{R(E.querySelector(".lazer-section-nine"),n),p?.(i?.data)},confirmed:()=>{var e=E.querySelector("#section7");const t=E.querySelectorAll(".lazer-section-success-amount");t.forEach(e=>{var t="confirmedAmount"===e.getAttribute("data-id");if("footer-amount"!==e.getAttribute("data-id"))return e.innerHTML=`${z(i?.data?.amountPaid)} ${i?.data?.coin} 
+                    `+(t?`<sub>(-${z(i?.data?.feeInCrypto)} ${i?.data?.coin} fee)</sub>`:"")}),E.querySelector(".lazer-section-PaidTODATA").innerText="Paid to "+P,R(e,n),c?.(i?.data)},incomplete:()=>{E.querySelector(".lazer-section-four-amount-to-payNOW").innerText=`${z(i?.data?.actualAmount-i?.data?.amountPaid)}  ${i?.data?.coin} `,E.querySelector(".lazer-section-partial-amount-amountPaid").innerText=`${z(i?.data?.amountPaid)} ${i?.data?.coin} (-${z(i?.data?.feeInCrypto)} ${i?.data?.coin} fee)`,E.querySelector(".lazer-section-PaidTODATA-Partial").innerText="Paid to "+P,R(E.querySelector(".lazer-section-eight"),n),c&&c(i?.data)}};t[i?.data?.status]?.()}).catch(e=>{p?.(e.message||"Something went wrong, please try again.")})}return{closeModal:O}}
