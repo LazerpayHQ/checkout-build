@@ -180,7 +180,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
             </div>
             <p class="lazer-section-five-content-ppss">
               <b>Note:</b> If the amount paid is more than the required
-              amount, contact <a class="text-primary" href="mailto:help@lazerpay.finance">help@lazerpay.finance</a> with your Name, Email and Wallet address for a refund.
+              amount, contact <a class="text-primary" href="mailto:support@lazerpay.finance">support@lazerpay.finance</a> with your Name, Email and Wallet address for a refund.
             </p>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
@@ -238,7 +238,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
             </div>
             <p class="lazer-section-five-content-ppss">
               <b>Note:</b> If the amount paid is more than the required
-              amount, contact <a class="text-primary" href="mailto:help@lazerpay.finance">help@lazerpay.finance</a> with your Name, Email and Wallet address for a refund.
+              amount, contact <a class="text-primary" href="mailto:support@lazerpay.finance">support@lazerpay.finance</a> with your Name, Email and Wallet address for a refund.
             </p>
             <div class="lazer-section-footer-amount-ppss">
               <p>Amount</p>
@@ -285,7 +285,7 @@ function LazerCheckout({email:e="",amount:t=0,name:n="",coin:i="",currency:o="",
 
               <div class="display-flex-center mb-23">
                 <p class="lazer-section-five-content-ppss">
-                  <b>Alternatively,</b> contact <a class="text-primary" href="mailto:help@lazerpay.finance">help@lazerpay.finance</a> with your Name, Email and Wallet address if you do not wish to continue with the transaction.
+                  <b>Alternatively,</b> contact <a class="text-primary" href="mailto:support@lazerpay.finance">support@lazerpay.finance</a> with your Name, Email and Wallet address if you do not wish to continue with the transaction.
                 </p>
               </div>
             </div>
